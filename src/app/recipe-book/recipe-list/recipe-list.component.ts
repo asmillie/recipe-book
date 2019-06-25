@@ -9,14 +9,17 @@ import { Recipe } from '../../data/recipe';
 })
 export class RecipeListComponent implements OnInit {
 
-  recipes: Recipe[] = [
-    new Recipe('Chocolate Chip Cookies',
+  recipeList: Recipe[] = [
+    new Recipe(0,
+      'Chocolate Chip Cookies',
     'Simple recipe for chocolate chip cookies',
     '../../../assets/img/cookie.jpg'),
-    new Recipe('Chocolate Chip Cookies',
+    new Recipe(1,
+      'Chocolate Chip Cookies',
     'Simple recipe for chocolate chip cookies',
     '../../../assets/img/cookie.jpg'),
-    new Recipe('Chocolate Chip Cookies',
+    new Recipe(2,
+      'Chocolate Chip Cookies',
     'Simple recipe for chocolate chip cookies',
     '../../../assets/img/cookie.jpg'),
   ];
