@@ -14,6 +14,7 @@ import { ShoppingListEditComponent } from './shopping/shopping-list-edit/shoppin
 const appRoutes: Routes = [
   { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'recipe-book', component: RecipeListComponent },
+  { path: 'recipe-detail', component: RecipeDetailComponent },
 ];
 
 @NgModule({
@@ -28,7 +29,7 @@ const appRoutes: Routes = [
     ShoppingListEditComponent
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     RouterModule.forRoot(
       appRoutes
     )
