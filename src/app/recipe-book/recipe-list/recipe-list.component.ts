@@ -12,7 +12,13 @@ export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [
     new Recipe('Chocolate Chip Cookies',
     'Simple recipe for chocolate chip cookies',
-    'https://pixabay.com/photos/cookies-chocolate-chip-cookies-1264263/')
+    '../../../assets/img/cookie.jpg'),
+    new Recipe('Chocolate Chip Cookies',
+    'Simple recipe for chocolate chip cookies',
+    '../../../assets/img/cookie.jpg'),
+    new Recipe('Chocolate Chip Cookies',
+    'Simple recipe for chocolate chip cookies',
+    '../../../assets/img/cookie.jpg'),
   ];
 
   constructor() { }

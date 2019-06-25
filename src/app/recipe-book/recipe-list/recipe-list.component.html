@@ -1,13 +1,15 @@
 <section id="recipe-list">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12">
       <button class="btn btn-success">Add Recipe</button>
     </div>      
   </div>
   <div class="row">
-    <div class="col-xs-12">
-      <p>List of recipe items</p>
-      <app-recipe-list-item></app-recipe-list-item>
+    <div class="col-12">
+      <p>List of recipe items</p>      
     </div>      
   </div>
+  <div class="row">
+    <app-recipe-list-item *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-list-item>
+  </div>  
 </section>
