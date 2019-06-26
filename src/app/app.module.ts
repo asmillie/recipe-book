@@ -9,7 +9,6 @@ import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail
 import { ShoppingListComponent } from './shopping/shopping-list/shopping-list.component';
 import { ShoppingListItemComponent } from './shopping/shopping-list-item/shopping-list-item.component';
 import { HeaderComponent } from './header/header.component';
-import { ShoppingListEditComponent } from './shopping/shopping-list-edit/shopping-list-edit.component';
 
 const appRoutes: Routes = [
   { path: 'shopping-list', component: ShoppingListComponent },
@@ -26,7 +25,6 @@ const appRoutes: Routes = [
     ShoppingListComponent,
     ShoppingListItemComponent,
     HeaderComponent,
-    ShoppingListEditComponent
   ],
   imports: [
     BrowserModule,
