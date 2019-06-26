@@ -3,8 +3,33 @@
     <div class="col-xs-12">
       <h2>Shopping List</h2>
       <h3>Ingredients</h3>
+
+      <form>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" placeholder="Enter Ingredient">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <input type="text" class="form-control" id="amount" placeholder="Amount">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <input type="text" class="form-control" id="unit" placeholder="Unit" aria-describedby="unitHelp">
+              <small id="unitHelp" class="form-text text-muted">(ie. lbs, g, bag)</small>
+            </div>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-success">Add</button>
+          </div>
+        </div>      
+      </form>
+
       <ul class="list-group">
-        <app-shopping-list-item *ngFor="let ingredient of ingredients" [ingredient]="ingredient"></app-shopping-list-item>
+        <app-shopping-list-item *ngFor="let ingredient of ingredients" [ingredient]="ingredient" (deleteId)="deleteId($event)"></app-shopping-list-item>
       </ul>
     </div>
   </div>

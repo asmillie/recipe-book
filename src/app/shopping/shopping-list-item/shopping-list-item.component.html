@@ -1,1 +1,5 @@
-<li class="list-group-item">{{ingredient.name}}, {{ingredient.amount}} {{ingredient.unit}}</li>
+<li class="list-group-item">
+    {{ingredient.name}}, {{ingredient.amount}} {{ingredient.unit}} 
+    <button type="button" class="btn btn-outline-danger float-right" (click)="delete()">X</button>
+    <div class="clearfix"></div>
+</li>
