@@ -29,4 +29,15 @@ export class RecipeListComponent implements OnInit {
   ngOnInit() {
   }
 
+  addRecipe() {
+    const recipeCount = this.recipeList.length;
+    this.recipeList.push(
+      new Recipe(
+        recipeCount,
+        'Chocolate Chip Cookies',
+        'Simple recipe for chocolate chip cookies',
+        '../../../assets/img/cookie.jpg')
+    )
+  }
+
 }
