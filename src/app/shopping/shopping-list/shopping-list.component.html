@@ -4,21 +4,21 @@
       <h2>Shopping List</h2>
       <h3>Ingredients</h3>
 
-      <form>
+      <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
         <div class="form-row">
           <div class="col">
             <div class="form-group">
-              <input type="text" class="form-control" id="name" placeholder="Enter Ingredient">
+              <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter Ingredient" required>
             </div>
           </div>
           <div class="col">
             <div class="form-group">
-              <input type="text" class="form-control" id="amount" placeholder="Amount">
+              <input type="text" class="form-control" id="amount" formControlName="amount" placeholder="Amount" required>
             </div>
           </div>
           <div class="col">
             <div class="form-group">
-              <input type="text" class="form-control" id="unit" placeholder="Unit" aria-describedby="unitHelp">
+              <input type="text" class="form-control" id="unit" formControlName="unit" placeholder="Unit" aria-describedby="unitHelp" required>
               <small id="unitHelp" class="form-text text-muted">(ie. lbs, g, bag)</small>
             </div>
           </div>
