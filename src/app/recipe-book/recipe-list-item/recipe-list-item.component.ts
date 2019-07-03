@@ -9,10 +9,27 @@ import { Recipe } from 'src/app/data/recipe';
 export class RecipeListItemComponent implements OnInit {
 
   @Input() recipe: Recipe;
+  openDropdown = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleDropdown(): void {
+    if (this.openDropdown === false) {
+      this.showDropdown();
+    } else {
+      this.closeDropdown();
+    }
+  }
+
+  closeDropdown(): void {
+    this.openDropdown = false;
+  }
+
+  showDropdown(): void {
+    this.openDropdown = true;
   }
 
 }

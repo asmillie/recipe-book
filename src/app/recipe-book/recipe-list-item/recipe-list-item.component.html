@@ -1,10 +1,28 @@
 <div class="col-md-4">
   <div class="card" style="width: 18rem">
+    <div class="card-header">
+      {{recipe.name}}
+    </div>
     <img src="{{recipe.imagePath}}" class="card-img-top" alt="Recipe Image" />
     <div class="card-body">
-      <h5 class="card-title">{{recipe.name}}</h5>
       <p class="card-text">{{recipe.description}}</p>
-      <a routerLink="recipe-detail/{{recipe.id}}" class="btn btn-primary">View Recipe</a>
+
+      <div class="btn-group" [class.show]="openDropdown">
+        <button type="button" class="btn btn-primary" routerLink="recipe-detail/{{recipe.id}}">View Recipe</button>
+        <button 
+          type="button" 
+          class="btn btn-warning dropdown-toggle dropdown-toggle-split" 
+          data-toggle="dropdown" 
+          aria-haspopup="true" 
+          [attr.aria-expanded]="openDropdown"
+          (click)="toggleDropdown()" 
+          (mouseleave)="closeDropdown()">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu" [class.show]="openDropdown">
+          <a class="dropdown-item" href="#">Delete</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
