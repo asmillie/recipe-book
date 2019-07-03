@@ -15,11 +15,10 @@
           data-toggle="dropdown" 
           aria-haspopup="true" 
           [attr.aria-expanded]="openDropdown"
-          (click)="toggleDropdown()" 
-          (mouseleave)="closeDropdown()">
+          (click)="toggleDropdown()">
           <span class="sr-only">Toggle Dropdown</span>
         </button>
-        <div class="dropdown-menu" [class.show]="openDropdown">
+        <div class="dropdown-menu" [class.show]="openDropdown" (mouseleave)="closeDropdown()">
           <a class="dropdown-item" href="#">Delete</a>
         </div>
       </div>
