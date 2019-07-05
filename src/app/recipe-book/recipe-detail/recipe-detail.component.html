@@ -1,12 +1,25 @@
-<section id="recipe-detail">
+<section id="recipe-detail">  
+  <div class="row">
+    <div class="col-12">
+      <h2>{{recipe.name}}</h2>
+    </div>
+  </div>
   <div class="row justify-content-md-center">
-    <div class="col-12 col-md-8">
-      <img src="{{recipe.getImagePath()}}" alt="Image of {{recipe.name}}" class="img-fluid" />
+    <div class="col-12 col-md-7">
+      <img src="{{recipe.getImagePath()}}" alt="Image of {{recipe.name}}" class="img-fluid my-md-5" />
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <h1>Recipe</h1>
+      <p>{{recipe.description}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>Ingredients</p>
+      <ul class="list-group">
+        <li class="list-item">Ingredient 1</li>
+      </ul>
     </div>
   </div>
   <div class="row">
@@ -20,20 +33,6 @@
             <a class="dropdown-item" href="#">Delete</a>
           </div>
         </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <h3>Description</h3>
-      <p>{{recipe.description}}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <p>Ingredients</p>
-      <ul class="list-group">
-        <li class="list-item">Ingredient 1</li>
-      </ul>
     </div>
   </div>
 </section>

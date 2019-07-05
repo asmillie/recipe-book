@@ -1,5 +1,5 @@
 <section id="recipe-list">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-10">
       <h1>Recipes</h1>      
     </div>
@@ -13,7 +13,7 @@
           <app-recipe-list-item *ngFor="let recipe of recipeList" [recipeId]="recipe.getId()" (click)="selectRecipeById(recipe.getId())"></app-recipe-list-item>
       </div>
     </div>
-    <div class="col-8">
+    <div *ngIf="selectedRecipeId > -1" class="col-8 border rounded-right">
       <app-recipe-detail *ngIf="selectedRecipeId > -1" [recipeId]="selectedRecipeId"></app-recipe-detail>
     </div>   
   </div>  
