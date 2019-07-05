@@ -22,7 +22,7 @@ export class RecipeService {
         return this.recipeList[id];
     }
 
-    getNextRecipeId(): number {
+    getNextId(): number {
         const lastIndex = this.recipeList.length - 1;
         if (lastIndex === -1) {
             return 0;

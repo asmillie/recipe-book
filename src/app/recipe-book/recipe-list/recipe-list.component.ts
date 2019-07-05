@@ -26,7 +26,7 @@ export class RecipeListComponent implements OnInit {
 
   addRecipe() {
     const recipe = new Recipe(
-          this.recipeService.getNextRecipeId(),
+          this.recipeService.getNextId(),
           'Chocolate Chip Cookies',
           'Simple recipe for chocolate chip cookies',
           '../../../assets/img/cookie.jpg');

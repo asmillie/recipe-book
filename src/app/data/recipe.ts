@@ -26,4 +26,16 @@ export class Recipe {
     public getImagePath(): string {
         return this.imagePath;
     }
+
+    public setName(name: string) {
+        this.name = name;
+    }
+
+    public setDescription(desc: string) {
+        this.description = desc;
+    }
+
+    public setImagePath(path: string) {
+        this.imagePath = path;
+    }
 }
