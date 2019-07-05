@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { Ingredient } from '../../data/ingredient';
+import { IngredientService } from 'src/app/data/ingredient.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -10,10 +11,7 @@ import { Ingredient } from '../../data/ingredient';
 })
 export class ShoppingListComponent implements OnInit {
 
-  ingredients: Ingredient[] = [
-    new Ingredient(0, 'Apple', 5, ''),
-    new Ingredient(1, 'Brown Sugar', 1, 'Bag')
-  ];
+  ingredients: Ingredient[];
 
   ingredientForm = this.fb.group({
     name: ['', Validators.required],
@@ -21,35 +19,36 @@ export class ShoppingListComponent implements OnInit {
     unit: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private ingredientService: IngredientService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.ingredients = this.ingredientService.getIngredients();
+    this.ingredientService.addIngredient(
+      new Ingredient(0, 'Apple', 5, '')
+    );
+    this.ingredientService.addIngredient(
+      new Ingredient(1, 'Brown Sugar', 1, 'Bag')
+    );
   }
 
   deleteId(id: number) {
-    const indexToDelete = this.ingredients.findIndex((ingredient) => id === ingredient.id);
-
-    if (indexToDelete === -1) {
-      console.log('Index to delete does not exist');
-    } else {
-      this.ingredients.splice(indexToDelete, 1);
+    const deleted = this.ingredientService.deleteIngredientById(id);
+    if (!deleted) {
+      console.log('error deleting ingredient');
     }
   }
 
-  getNextId(): number {
-    return this.ingredients.length;
-  }
-
   onSubmit() {
-    console.log(this.ingredientForm.value);
-    this.ingredients.push(
-      new Ingredient(
-        this.getNextId(),
-        this.ingredientForm.get('name').value,
-        this.ingredientForm.get('amount').value,
-        this.ingredientForm.get('unit').value
-      )
+    const ingredient = new Ingredient(
+      this.ingredientService.getNextId(),
+      this.ingredientForm.get('name').value,
+      this.ingredientForm.get('amount').value,
+      this.ingredientForm.get('unit').value
     );
+    this.ingredientService.addIngredient(ingredient);
+
     this.ingredientForm.reset();
   }
 

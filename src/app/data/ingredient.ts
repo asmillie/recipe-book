@@ -1,3 +1,41 @@
 export class Ingredient {
-    constructor(public id: number, public name: string, public amount: number, public unit: string) {  }
+    private id: number;
+    private name: string;
+    private amount: number;
+    private unit: string;
+
+    constructor(id: number, name: string, amount: number, unit: string) {
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
+        this.unit = unit;
+    }
+
+    public getId(): number {
+        return this.id;
+    }
+
+    public getName(): string {
+        return this.name;
+    }
+
+    public getAmount(): number {
+        return this.amount;
+    }
+
+    public getUnit(): string {
+        return this.unit;
+    }
+
+    public setName(name: string) {
+        this.name = name;
+    }
+
+    public setAmount(amt: number) {
+        this.amount = amt;
+    }
+
+    public setUnit(unit: string) {
+        this.unit = unit;
+    }
 }

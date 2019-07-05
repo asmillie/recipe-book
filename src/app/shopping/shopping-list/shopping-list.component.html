@@ -1,8 +1,8 @@
 <section id="shopping-list">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12 col-md-8">
       <h2>Shopping List</h2>
-      <h3>Ingredients</h3>
+      <h3 class="text-muted">Ingredients</h3>
 
       <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
         <div class="form-row">
@@ -29,7 +29,7 @@
       </form>
 
       <ul class="list-group">
-        <app-shopping-list-item *ngFor="let ingredient of ingredients" [ingredient]="ingredient" (deleteId)="deleteId($event)"></app-shopping-list-item>
+        <app-shopping-list-item *ngFor="let ingredient of ingredients" [ingredientId]="ingredient.getId()" (deleteId)="deleteId($event)"></app-shopping-list-item>
       </ul>
     </div>
   </div>

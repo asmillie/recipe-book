@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Ingredient } from 'src/app/data/ingredient';
+import { IngredientService } from 'src/app/data/ingredient.service';
 
 @Component({
   selector: 'app-shopping-list-item',
@@ -8,16 +9,17 @@ import { Ingredient } from 'src/app/data/ingredient';
 })
 export class ShoppingListItemComponent implements OnInit {
 
-  @Input() ingredient: Ingredient;
-  @Output() deleteId = new EventEmitter<number>();
+  @Input() ingredientId: number;
+  ingredient: Ingredient;
 
-  constructor() { }
+  constructor(private ingredientService: IngredientService) { }
 
   ngOnInit() {
+    this.ingredient = this.ingredientService.getIngredientById(this.ingredientId);
   }
 
   delete() {
-    this.deleteId.emit(this.ingredient.id);
+    this.ingredientService.deleteIngredientById(this.ingredientId);
   }
 
 }
