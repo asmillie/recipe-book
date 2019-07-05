@@ -1,15 +1,20 @@
 <section id="recipe-list">
   <div class="row">
-    <div class="col-12">
-      <button class="btn btn-success" (click)="addRecipe()">Add Recipe</button>
-    </div>      
+    <div class="col-10">
+      <h1>Recipes</h1>      
+    </div>
+    <div class="col-2 text-right">
+        <button class="btn btn-success" (click)="addRecipe()">Add Recipe</button>
+    </div>
   </div>
   <div class="row">
-    <div class="col-12">
-      <p>List of recipe items</p>      
-    </div>      
-  </div>
-  <div class="row">
-    <app-recipe-list-item *ngFor="let recipe of recipeList" [recipe]="recipe"></app-recipe-list-item>
+    <div class="col-4">
+      <div class="list-group">
+          <app-recipe-list-item *ngFor="let recipe of recipeList" [recipeId]="recipe.getId()" (click)="selectRecipeById(recipe.getId())"></app-recipe-list-item>
+      </div>
+    </div>
+    <div class="col-8">
+      <app-recipe-detail *ngIf="selectedRecipeId > -1" [recipeId]="selectedRecipeId"></app-recipe-detail>
+    </div>   
   </div>  
 </section>

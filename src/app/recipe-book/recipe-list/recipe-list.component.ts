@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Recipe } from '../../data/recipe';
+import { RecipeService } from 'src/app/data/recipe.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -9,35 +10,32 @@ import { Recipe } from '../../data/recipe';
 })
 export class RecipeListComponent implements OnInit {
 
-  recipeList: Recipe[] = [
-    new Recipe(0,
-      'Chocolate Chip Cookies',
-    'Simple recipe for chocolate chip cookies',
-    '../../../assets/img/cookie.jpg'),
-    new Recipe(1,
-      'Chocolate Chip Cookies',
-    'Simple recipe for chocolate chip cookies',
-    '../../../assets/img/cookie.jpg'),
-    new Recipe(2,
-      'Chocolate Chip Cookies',
-    'Simple recipe for chocolate chip cookies',
-    '../../../assets/img/cookie.jpg'),
-  ];
+  recipeList: Recipe[];
+  selectedRecipeId: number;
 
-  constructor() { }
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
+    this.recipeList = this.recipeService.getRecipes();
+    if (this.recipeList.length !== 0) {
+      this.selectRecipeById(this.recipeList[0].getId());
+    }
+    this.addRecipe();
+    this.addRecipe();
   }
 
   addRecipe() {
-    const recipeCount = this.recipeList.length;
-    this.recipeList.push(
-      new Recipe(
-        recipeCount,
-        'Chocolate Chip Cookies',
-        'Simple recipe for chocolate chip cookies',
-        '../../../assets/img/cookie.jpg')
-    )
+    const recipe = new Recipe(
+          this.recipeService.getNextRecipeId(),
+          'Chocolate Chip Cookies',
+          'Simple recipe for chocolate chip cookies',
+          '../../../assets/img/cookie.jpg');
+
+    this.recipeService.addRecipe(recipe);
+  }
+
+  selectRecipeById(id: number) {
+    this.selectedRecipeId = id;
   }
 
 }
