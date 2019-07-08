@@ -19,9 +19,10 @@ export class RecipeListComponent implements OnInit {
     this.recipeList = this.recipeService.getRecipes();
     if (this.recipeList.length !== 0) {
       this.selectRecipeById(this.recipeList[0].getId());
+    } else {
+      this.addRecipe();
+      this.addRecipe();
     }
-    this.addRecipe();
-    this.addRecipe();
   }
 
   addRecipe() {
