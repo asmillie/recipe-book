@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { Recipe } from 'src/app/data/recipe';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-recipe',
@@ -22,8 +22,8 @@ export class AddRecipeComponent implements OnInit {
 
   initForm() {
     this.recipeForm = this.fb.group({
-      name: [''],
-      description: [''],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
       imgPath: ['']
     });
   }
