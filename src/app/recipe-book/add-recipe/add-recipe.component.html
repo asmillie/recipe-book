@@ -1,21 +1,82 @@
-<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-  <div class="form-group row">
-    <label for="name" class="col-md-2 col-form-label">Name</label>
-    <div class="col-md-10">
-      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter name of recipe" required>
+<section id="newRecipe">
+  <div class="row mb-3">
+    <div class="col-12">
+      <h1>Add New Recipe</h1>
     </div>
   </div>
-  <div class="form-group row">
-    <label for="imgPath" class="col-md-2 col-form-label">Image Path</label>
-    <div class="col-md-10">
-      <input type="text" class="form-control" id="imgPath" formControlName="imgPath" placeholder="Enter path to image">
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <label for="name" class="col-md-2 col-form-label">Name</label>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter name of recipe" required>
+      </div>
     </div>
-  </div>
-  <div class="form-group row">
-    <label for="description" class="col-md-2 col-form-label">Description</label>
-    <div class="col-md-10">
-      <textarea class="form-control" rows="4" id="description" formControlName="description" placeholder="Enter recipe description" required></textarea>
+    <div class="form-group row">
+      <label for="imgPath" class="col-md-2 col-form-label">Image Path</label>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="imgPath" formControlName="imgPath" placeholder="Enter path to image">
+      </div>
     </div>
-  </div>
-  <button type="submit" class="btn btn-success">Add</button>
-</form>
+    <div class="form-group row">
+      <label for="description" class="col-md-2 col-form-label">Description</label>
+      <div class="col-md-6">
+        <textarea class="form-control" rows="4" id="description" formControlName="description" placeholder="Enter recipe description" required></textarea>
+      </div>
+    </div>
+
+    <hr>
+
+    <div formArrayName="ingredients">
+      <div class="row mb-2">
+        <div class="col">
+          <h3 class="text-muted">Ingredients</h3> 
+        </div>
+      </div>     
+
+      <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i">
+        <div class="form-row" *ngIf="i === 0">
+          <div class="col-2 offset-2">
+            <h6>Ingredient</h6>
+          </div>
+          <div class="col-1">
+            <h6>Amount</h6>
+          </div>
+          <div class="col-2">
+            <h6>Unit</h6>
+          </div>
+        </div>
+
+        <div class="form-row mt-1">        
+          <div class="col-2 offset-2">
+            <input type="text" class="form-control form-control-sm" formControlName="ingredientName" placeholder="Ingredient">
+          </div>
+          <div class="col-1">
+            <input type="text" class="form-control form-control-sm" formControlName="amount" placeholder="Amount">
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" formControlName="unit" placeholder="Unit">
+          </div>
+          <div class="col-1">
+            <button type="button" class="btn btn-danger btn-sm" (click)="removeIngredientRow(i)">X</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-info btn-sm" (click)="newIngredientRow()">Add Ingredient</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 text-right">
+          <button type="submit" class="btn btn-success btn-lg mt-4">Submit</button>
+      </div>
+    </div>
+    
+  </form>
+</section>
+
+

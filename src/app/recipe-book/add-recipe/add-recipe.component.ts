@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { Recipe } from 'src/app/data/recipe';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-recipe',
@@ -14,7 +15,8 @@ export class AddRecipeComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -24,8 +26,29 @@ export class AddRecipeComponent implements OnInit {
     this.recipeForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      imgPath: ['']
+      imgPath: [''],
+      ingredients: this.fb.array([])
     });
+
+    // Provide some ingredient fields to start with
+    let rows = 5;
+    for (rows; rows > 0; rows--) {
+      this.newIngredientRow();
+    }
+  }
+
+  newIngredientRow() {
+    this.ingredients.push(
+      this.fb.group({
+        ingredientName: [''],
+        amount: [0],
+        unit: ['']
+      })
+    );
+  }
+
+  removeIngredientRow(index) {
+    this.ingredients.removeAt(index);
   }
 
   onSubmit() {
@@ -37,6 +60,11 @@ export class AddRecipeComponent implements OnInit {
     );
     this.recipeService.addRecipe(recipe);
     this.recipeForm.reset();
+    this.router.navigateByUrl('recipe-book');
+  }
+
+  get ingredients() {
+    return this.recipeForm.get('ingredients') as FormArray;
   }
 
 }

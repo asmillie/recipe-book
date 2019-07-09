@@ -1,14 +1,18 @@
+import { Ingredient } from './ingredient';
+
 export class Recipe {
     private id: number;
     private name: string;
     private description: string;
     private imagePath: string;
+    private ingredients: Ingredient[];
 
-    constructor(id: number, name: string, desc: string, imgPath: string) {
+    constructor(id: number, name: string, desc: string, imgPath: string, ingredients: Ingredient[] = []) {
         this.id = id;
         this.name = name;
         this.description = desc;
         this.imagePath = imgPath;
+        this.ingredients = ingredients;
     }
 
     public getId(): number {
@@ -27,6 +31,10 @@ export class Recipe {
         return this.imagePath;
     }
 
+    public getIngredients(): Ingredient[] {
+        return this.ingredients;
+    }
+
     public setName(name: string) {
         this.name = name;
     }
@@ -37,5 +45,9 @@ export class Recipe {
 
     public setImagePath(path: string) {
         this.imagePath = path;
+    }
+
+    public setIngredients(ingredients: Ingredient[]) {
+        this.ingredients = ingredients;
     }
 }
