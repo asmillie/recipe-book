@@ -1,38 +1,44 @@
 <section id="recipe-detail">  
-  <div class="row">
-    <div class="col-12">
+  <div class="row mb-2">
+    <div class="col-md-8">
       <h2>{{recipe.name}}</h2>
+    </div>
+    <div class="col-md-4">
+      <div class="dropdown float-right" [class.show]="showDropdown">
+        <button 
+          class="btn btn-secondary dropdown-toggle" 
+          type="button" 
+          id="actions" 
+          data-toggle="dropdown" 
+          aria-haspopup="true" 
+          (click)="toggleDropdown()"
+          [attr.aria-expanded]="openDropdown">
+          Manage
+        </button>
+        <div class="dropdown-menu" aria-labelledby="actions" [class.show]="showDropdown" (mouseleave)="toggleDropdown()">
+          <button class="dropdown-item" type="button">Edit</button>
+          <button class="dropdown-item text-danger" type="button">Delete</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row justify-content-md-center">
     <div class="col-12 col-md-7">
       <img src="{{recipe.getImagePath()}}" alt="Image of {{recipe.name}}" class="img-fluid my-md-5" />
     </div>
-  </div>
-  <div class="row">
+  </div>  
+  <div class="row mb-2">
     <div class="col-12">
-      <p>{{recipe.description}}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <p>Ingredients</p>
-      <ul class="list-group">
-        <li class="list-item">Ingredient 1</li>
+      <h4>Ingredients</h4>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngIf="recipe.getIngredients().length === 0">No Ingredients found</li>
+        <li class="list-group-item" *ngFor="let ingredient of recipe.getIngredients()">{{ingredient.getAmount()}} {{ingredient.getUnit()}} {{ingredient.getName()}}</li> 
       </ul>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-2">
     <div class="col-12">
-      <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="actions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Actions
-          </button>
-          <div class="dropdown-menu" aria-labelledby="actions">
-            <a class="dropdown-item" href="#">Edit</a>
-            <a class="dropdown-item" href="#">Delete</a>
-          </div>
-        </div>
+      <p>{{recipe.description}}</p>
     </div>
   </div>
 </section>

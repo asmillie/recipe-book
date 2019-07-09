@@ -11,10 +11,15 @@ export class RecipeDetailComponent implements OnInit {
 
   @Input() recipeId: number;
   recipe: Recipe;
+  showDropdown = false;
 
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
     this.recipe = this.recipeService.getRecipeById(this.recipeId);
+  }
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
   }
 }
