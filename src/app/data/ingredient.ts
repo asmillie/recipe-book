@@ -27,6 +27,10 @@ export class Ingredient {
         return this.unit;
     }
 
+    public setId(id: number) {
+        this.id = id;
+    }
+
     public setName(name: string) {
         this.name = name;
     }

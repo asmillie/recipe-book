@@ -32,17 +32,17 @@ export class RecipeListComponent implements OnInit {
   // Test data
   addRecipe() {
     const ingredients = [
-      new Ingredient(this.ingredientService.getNextId(), 'butter, softened', 1, 'cup'),
-      new Ingredient(this.ingredientService.getNextId(), 'white sugar', 1, 'cup'),
-      new Ingredient(this.ingredientService.getNextId(), 'packed brown sugar', 1, 'cup'),
-      new Ingredient(this.ingredientService.getNextId(), 'eggs', 2, ''),
-      new Ingredient(this.ingredientService.getNextId(), 'vanilla extract', 2, 'tsp'),
-      new Ingredient(this.ingredientService.getNextId(), 'baking soda', 1, 'tsp'),
-      new Ingredient(this.ingredientService.getNextId(), 'hot water', 2, 'tsp'),
-      new Ingredient(this.ingredientService.getNextId(), 'salt', 0.5, 'tsp'),
-      new Ingredient(this.ingredientService.getNextId(), 'all-purpose flour', 3, 'cups'),
-      new Ingredient(this.ingredientService.getNextId(), 'semisweet chocolate chips', 2, 'cups'),
-      new Ingredient(this.ingredientService.getNextId(), 'chopped walnuts', 1, 'cup')
+      new Ingredient(-1, 'butter, softened', 1, 'cup'),
+      new Ingredient(-1, 'white sugar', 1, 'cup'),
+      new Ingredient(-1, 'packed brown sugar', 1, 'cup'),
+      new Ingredient(-1, 'eggs', 2, ''),
+      new Ingredient(-1, 'vanilla extract', 2, 'tsp'),
+      new Ingredient(-1, 'baking soda', 1, 'tsp'),
+      new Ingredient(-1, 'hot water', 2, 'tsp'),
+      new Ingredient(-1, 'salt', 0.5, 'tsp'),
+      new Ingredient(-1, 'all-purpose flour', 3, 'cups'),
+      new Ingredient(-1, 'semisweet chocolate chips', 2, 'cups'),
+      new Ingredient(-1, 'chopped walnuts', 1, 'cup')
     ];
 
     const recipe = new Recipe(

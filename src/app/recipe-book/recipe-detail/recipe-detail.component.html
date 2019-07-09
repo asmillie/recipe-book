@@ -1,23 +1,26 @@
 <section id="recipe-detail">  
-  <div class="row mb-2">
-    <div class="col-md-8">
+  <div class="row mb-2 justify-content-between">
+    <div class="col-md-auto">
       <h2>{{recipe.name}}</h2>
     </div>
-    <div class="col-md-4">
-      <div class="dropdown float-right" [class.show]="showDropdown">
-        <button 
-          class="btn btn-secondary dropdown-toggle" 
-          type="button" 
-          id="actions" 
-          data-toggle="dropdown" 
-          aria-haspopup="true" 
-          (click)="toggleDropdown()"
-          [attr.aria-expanded]="openDropdown">
-          Manage
-        </button>
-        <div class="dropdown-menu" aria-labelledby="actions" [class.show]="showDropdown" (mouseleave)="toggleDropdown()">
-          <button class="dropdown-item" type="button">Edit</button>
-          <button class="dropdown-item text-danger" type="button">Delete</button>
+    <div class="col-md-auto">
+      <div class="btn-group" role="group" aria-label="Recipe Actions">
+        <button type="button" class="btn btn-success" (click)="addToShopping()" [attr.disabled]="addedToShopping === true ? true : null">Add to Shopping</button>
+        <div class="btn-group" [class.show]="showDropdown">
+          <button 
+            class="btn btn-secondary dropdown-toggle" 
+            type="button" 
+            id="actions" 
+            data-toggle="dropdown" 
+            aria-haspopup="true" 
+            (click)="toggleDropdown()"
+            [attr.aria-expanded]="openDropdown">
+            Manage
+          </button>
+          <div class="dropdown-menu" aria-labelledby="actions" [class.show]="showDropdown" (mouseleave)="toggleDropdown()">
+            <button class="dropdown-item" type="button">Edit</button>
+            <button class="dropdown-item text-danger" type="button">Delete</button>
+          </div>
         </div>
       </div>
     </div>
@@ -36,7 +39,7 @@
       </ul>
     </div>
   </div>
-  <div class="row mb-2">
+  <div class="row my-4">
     <div class="col-12">
       <p>{{recipe.description}}</p>
     </div>

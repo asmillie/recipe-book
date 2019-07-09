@@ -33,7 +33,17 @@ export class IngredientService {
     }
 
     addIngredient(ingredient: Ingredient) {
+        // Ingredients that are part of a recipe need an id assigned
+        if (ingredient.getId() === -1) {
+            ingredient.setId(this.getNextId());
+        }
         this.ingredientList.push(ingredient);
+    }
+
+    addIngredients(ingredients: Ingredient[]) {
+        ingredients.forEach((ingredient) => {
+            this.addIngredient(ingredient);
+        });
     }
 
     updateIngredient(ingredient: Ingredient): boolean {
