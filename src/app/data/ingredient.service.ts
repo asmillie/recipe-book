@@ -33,7 +33,7 @@ export class IngredientService {
     }
 
     addIngredient(ingredient: Ingredient) {
-        // Ingredients that are part of a recipe need an id assigned
+        // Ingredients being added from a recipe need an id assigned
         if (ingredient.getId() === -1) {
             ingredient.setId(this.getNextId());
         }

@@ -34,4 +34,8 @@ export class RecipeDetailComponent implements OnInit {
       this.addedToShopping = true;
     }
   }
+
+  deleteRecipe() {
+    this.recipeService.deleteRecipeById(this.recipeId);
+  }
 }

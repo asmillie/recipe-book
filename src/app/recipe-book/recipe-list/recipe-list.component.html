@@ -1,20 +1,10 @@
-<section id="recipe-list">
-  <div class="row mb-3">
-    <div class="col-10">
-      <h1>Recipes</h1>      
-    </div>
-    <div class="col-2 text-right">
-      <a routerLink="../add-recipe" class="btn btn-primary">New Recipe</a>
+<div class="row">
+  <div class="col-4">
+    <div class="list-group">
+        <app-recipe-list-item *ngFor="let recipe of recipeList" [recipeId]="recipe.getId()" (click)="selectRecipeById(recipe.getId())"></app-recipe-list-item>
     </div>
   </div>
-  <div class="row">
-    <div class="col-4">
-      <div class="list-group">
-          <app-recipe-list-item *ngFor="let recipe of recipeList" [recipeId]="recipe.getId()" (click)="selectRecipeById(recipe.getId())"></app-recipe-list-item>
-      </div>
-    </div>
-    <div *ngIf="selectedRecipeId > -1" class="col-8 border rounded-right">
-      <app-recipe-detail *ngIf="selectedRecipeId > -1" [recipeId]="selectedRecipeId"></app-recipe-detail>
-    </div>   
-  </div>  
-</section>
+  <div *ngIf="selectedRecipeId > -1" class="col-8 border rounded-right">
+    <app-recipe-detail *ngIf="selectedRecipeId > -1" [recipeId]="selectedRecipeId"></app-recipe-detail>
+  </div> 
+</div> 
