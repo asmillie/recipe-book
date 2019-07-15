@@ -29,7 +29,9 @@ export class RecipeListItemComponent implements OnInit {
   }
 
   initRecipe() {
-    this.recipe = this.recipeService.getRecipeById(this.recipeId);
+    this.recipeService.getRecipeById(this.recipeId).subscribe((recipe) => {
+      this.recipe = recipe;
+    });
   }
 
   closeDropdown(): void {

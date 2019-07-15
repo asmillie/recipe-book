@@ -16,10 +16,12 @@ export class IngredientService {
         return this.ingredientList;
     }
 
-    getIngredientById(id: number): Ingredient {
+    getIngredientById(id: number): Ingredient | number {
         const index = this.getIndexForIngredientId(id);
         if (index !== -1) {
             return this.ingredientList[index];
+        } else {
+            return -1;
         }
     }
 

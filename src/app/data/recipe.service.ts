@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 import { Recipe } from './recipe';
+
+import { MOCK_RECIPES } from './mock-recipes';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +14,7 @@ export class RecipeService {
     constructor() {
         if (this.recipeList === undefined || this.recipeList === null) {
             this.initRecipeList();
+            this.recipeList = MOCK_RECIPES;
         }
     }
 
@@ -18,8 +22,14 @@ export class RecipeService {
         return this.recipeList;
     }
 
-    getRecipeById(id: number): Recipe {
-        return this.recipeList[id];
+    getRecipeById(id: number): Observable<Recipe> {
+        const index = this.getRecipeIndexById(id);
+        console.log('Index ' + index + ' found for Recipe Id ' + id);
+        if (index !== -1) {
+            return of(this.recipeList[id]);
+        } else {
+            return of(null);
+        }
     }
 
     getNextId(): number {
@@ -59,6 +69,6 @@ export class RecipeService {
     }
 
     private getRecipeIndexById(id: number): number {
-        return this.recipeList.findIndex((recipe) => recipe.getId() === id);
+        return this.recipeList.findIndex(recipe => recipe.getId() === id);
     }
 }

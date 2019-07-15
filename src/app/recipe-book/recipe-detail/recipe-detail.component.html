@@ -1,4 +1,4 @@
-<section id="recipe-detail">  
+<section id="recipe-detail" *ngIf="recipe;else empty_recipe">  
   <div class="row mb-2 justify-content-between">
     <div class="col-md-auto">
       <h2>{{recipe.name}}</h2>
@@ -45,3 +45,6 @@
     </div>
   </div>
 </section>
+<ng-template #empty_recipe>
+  <h5 class="alert-danger">No recipe found</h5>
+</ng-template>

@@ -44,13 +44,18 @@ export class RecipeDetailComponent implements OnInit {
   private initRecipe() {
     this.router.params.subscribe((params: Params) => {
       if (params.id !== this.recipeId) {
-        this.recipeId = params.id;
+        this.recipeId = +params.id;
         this.refreshRecipe();
       }
     });
   }
 
   private refreshRecipe() {
-    this.recipe = this.recipeService.getRecipeById(this.recipeId);
+    const value = this.recipeService.getRecipeById(this.recipeId);
+    if (value !== null) {
+      value.subscribe((recipe) => {
+        this.recipe = recipe;
+      });
+    }
   }
 }
