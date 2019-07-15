@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
 import { ShoppingListComponent } from './shopping/shopping-list/shopping-list.component';
-import { ShoppingListItemComponent } from './shopping/shopping-list-item/shopping-list-item.component';
 import { AddRecipeComponent } from './recipe-book/add-recipe/add-recipe.component';
 import { RecipesComponent } from './recipe-book/recipes.component';
 
