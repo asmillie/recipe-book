@@ -4,6 +4,7 @@ import { Recipe } from '../../data/recipe';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { Ingredient } from 'src/app/data/ingredient';
 import { IngredientService } from 'src/app/data/ingredient.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-list',
@@ -17,7 +18,9 @@ export class RecipeListComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private ingredientService: IngredientService) { }
+    private ingredientService: IngredientService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.recipeList = this.recipeService.getRecipes();
@@ -26,6 +29,7 @@ export class RecipeListComponent implements OnInit {
     } else {
       this.addRecipe();
       this.addRecipe();
+      this.selectRecipeById(this.recipeList[0].getId());
     }
   }
 
@@ -60,6 +64,7 @@ export class RecipeListComponent implements OnInit {
 
   selectRecipeById(id: number) {
     this.selectedRecipeId = id;
+    this.router.navigate(['/recipes', id], { relativeTo: this.route });
   }
 
 }

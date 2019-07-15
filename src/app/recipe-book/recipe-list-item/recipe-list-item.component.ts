@@ -17,7 +17,7 @@ export class RecipeListItemComponent implements OnInit {
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.recipe = this.recipeService.getRecipeById(this.recipeId);
+    this.initRecipe();
   }
 
   toggleDropdown(): void {
@@ -26,6 +26,10 @@ export class RecipeListItemComponent implements OnInit {
     } else {
       this.closeDropdown();
     }
+  }
+
+  initRecipe() {
+    this.recipe = this.recipeService.getRecipeById(this.recipeId);
   }
 
   closeDropdown(): void {

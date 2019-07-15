@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from 'src/app/data/recipe';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { IngredientService } from 'src/app/data/ingredient.service';
+import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -10,17 +11,18 @@ import { IngredientService } from 'src/app/data/ingredient.service';
 })
 export class RecipeDetailComponent implements OnInit {
 
-  @Input() recipeId: number;
+  recipeId: number;
   recipe: Recipe;
   showDropdown = false;
   addedToShopping = false;
 
   constructor(
     private recipeService: RecipeService,
-    private ingredientService: IngredientService) { }
+    private ingredientService: IngredientService,
+    private router: ActivatedRoute) { }
 
   ngOnInit() {
-    this.recipe = this.recipeService.getRecipeById(this.recipeId);
+    this.initRecipe();
   }
 
   toggleDropdown() {
@@ -37,5 +39,18 @@ export class RecipeDetailComponent implements OnInit {
 
   deleteRecipe() {
     this.recipeService.deleteRecipeById(this.recipeId);
+  }
+
+  private initRecipe() {
+    this.router.params.subscribe((params: Params) => {
+      if (params.id !== this.recipeId) {
+        this.recipeId = params.id;
+        this.refreshRecipe();
+      }
+    });
+  }
+
+  private refreshRecipe() {
+    this.recipe = this.recipeService.getRecipeById(this.recipeId);
   }
 }

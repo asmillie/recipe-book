@@ -5,6 +5,6 @@
     </div>
   </div>
   <div *ngIf="selectedRecipeId > -1" class="col-8 border rounded-right">
-    <app-recipe-detail *ngIf="selectedRecipeId > -1" [recipeId]="selectedRecipeId"></app-recipe-detail>
+    <router-outlet></router-outlet>
   </div> 
 </div> 
