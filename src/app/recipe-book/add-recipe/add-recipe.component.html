@@ -1,7 +1,7 @@
 <section id="newRecipe">
   <div class="row mb-3">
     <div class="col-12">
-      <h1>Add New Recipe</h1>
+      <h2 class="text-muted">{{mode | titlecase}} Recipe</h2>
     </div>
   </div>
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
@@ -29,7 +29,7 @@
     <div formArrayName="ingredients">
       <div class="row mb-2">
         <div class="col">
-          <h3 class="text-muted">Ingredients</h3> 
+          <h4 class="text-muted">Ingredients</h4> 
         </div>
       </div>     
 
@@ -72,7 +72,7 @@
 
     <div class="row">
       <div class="col-md-8 text-right">
-          <button type="submit" class="btn btn-success btn-lg mt-4">Submit</button>
+          <button type="submit" class="btn btn-success btn-lg mt-4" [attr.disabled]="recipeForm.status === 'INVALID' ? 'disabled' : null">Submit</button>
       </div>
     </div>
     

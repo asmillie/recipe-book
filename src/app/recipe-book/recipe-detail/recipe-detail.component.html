@@ -18,7 +18,7 @@
             Manage
           </button>
           <div class="dropdown-menu" aria-labelledby="actions" [class.show]="showDropdown" (mouseleave)="toggleDropdown()">
-            <button class="dropdown-item" type="button">Edit</button>
+            <button class="dropdown-item" type="button" (click)="editRecipe()">Edit</button>
             <button class="dropdown-item text-danger" type="button" (click)="deleteRecipe()">Delete</button>
           </div>
         </div>

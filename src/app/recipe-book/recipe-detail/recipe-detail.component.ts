@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from 'src/app/data/recipe';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { IngredientService } from 'src/app/data/ingredient.service';
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -19,7 +19,8 @@ export class RecipeDetailComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private ingredientService: IngredientService,
-    private router: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.initRecipe();
@@ -37,12 +38,16 @@ export class RecipeDetailComponent implements OnInit {
     }
   }
 
+  editRecipe() {
+    this.router.navigate(['recipes/edit', this.recipeId]);
+  }
+
   deleteRecipe() {
     this.recipeService.deleteRecipeById(this.recipeId);
   }
 
   private initRecipe() {
-    this.router.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       if (params.id !== this.recipeId) {
         this.recipeId = +params.id;
         this.refreshRecipe();

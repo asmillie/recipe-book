@@ -24,7 +24,6 @@ export class RecipeService {
 
     getRecipeById(id: number): Observable<Recipe> {
         const index = this.getRecipeIndexById(id);
-        console.log('Index ' + index + ' found for Recipe Id ' + id);
         if (index !== -1) {
             return of(this.recipeList[id]);
         } else {
