@@ -1,5 +1,5 @@
-<li class="list-group-item">
-    {{ingredient.name}}, {{ingredient.amount}} {{ingredient.unit}} 
-    <button type="button" class="btn btn-outline-danger float-right" (click)="delete()">X</button>
+<li class="list-group-item py-1 align-text-bottom">
+    <p class="d-inline">{{ingredient.name}}, {{ingredient.amount}} {{ingredient.unit}}</p>
+    <button type="button" class="btn btn-outline-danger btn-sm float-right" (click)="delete()">X</button>
     <div class="clearfix"></div>
 </li>
