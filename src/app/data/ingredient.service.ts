@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Ingredient } from './ingredient';
 
+import { MOCK_INGREDIENTS } from './mock-ingredients';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -67,7 +69,7 @@ export class IngredientService {
     }
 
     private initIngredientList() {
-        this.ingredientList = [];
+        this.ingredientList = MOCK_INGREDIENTS;
     }
 
     private getIndexForIngredientId(id: number): number {

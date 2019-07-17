@@ -25,14 +25,6 @@ export class ShoppingListComponent implements OnInit {
 
   ngOnInit() {
     this.ingredients = this.ingredientService.getIngredients();
-    if (this.ingredients === undefined || this.ingredients.length === 0) {
-      this.ingredientService.addIngredient(
-        new Ingredient(0, 'Apple', 5, '')
-      );
-      this.ingredientService.addIngredient(
-        new Ingredient(1, 'Brown Sugar', 1, 'Bag')
-      );
-    }
   }
 
   deleteId(id: number) {
