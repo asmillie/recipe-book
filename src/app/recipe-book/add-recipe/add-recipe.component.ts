@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { Recipe } from 'src/app/data/recipe';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Ingredient } from 'src/app/data/ingredient';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-recipe',
   templateUrl: './add-recipe.component.html',
   styleUrls: ['./add-recipe.component.css']
 })
-export class AddRecipeComponent implements OnInit {
+export class AddRecipeComponent implements OnInit, OnDestroy {
 
   mode: string;
   recipe: Recipe;
+  subscription: Subscription;
   recipeForm;
 
   constructor(
@@ -28,10 +30,14 @@ export class AddRecipeComponent implements OnInit {
     this.initRecipe();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   private initRecipe() {
     this.route.params.subscribe(({id = -1}) => {
       if (id !== -1) {
-        this.recipeService.getRecipeById(+id).subscribe((recipe) => {
+        this.subscription = this.recipeService.getRecipeById(+id).subscribe((recipe) => {
           if (recipe !== null) {
             this.recipe = recipe;
             this.populateForm();

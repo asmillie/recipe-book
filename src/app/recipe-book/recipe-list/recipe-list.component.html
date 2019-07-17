@@ -1,7 +1,11 @@
 <div class="row">
   <div class="col-4">
     <div class="list-group">
-        <app-recipe-list-item *ngFor="let recipe of recipeList" [recipeId]="recipe.getId()" (click)="selectRecipeById(recipe.getId())"></app-recipe-list-item>
+        <app-recipe-list-item 
+          *ngFor="let recipe of recipeList" 
+          [recipeId]="recipe.getId()" 
+          (click)="selectRecipeById(recipe.getId())">
+        </app-recipe-list-item>
     </div>
   </div>
   <div *ngIf="selectedRecipeId > -1" class="col-8 border rounded-right">

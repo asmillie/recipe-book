@@ -1,18 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Recipe } from 'src/app/data/recipe';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { IngredientService } from 'src/app/data/ingredient.service';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
 })
-export class RecipeDetailComponent implements OnInit {
+export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   recipeId: number;
   recipe: Recipe;
+  subscription: Subscription;
   showDropdown = false;
   addedToShopping = false;
 
@@ -24,6 +26,10 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit() {
     this.initRecipe();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   toggleDropdown() {
@@ -47,7 +53,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   private initRecipe() {
-    this.route.params.subscribe((params: Params) => {
+    this.subscription = this.route.params.subscribe((params: Params) => {
       if (params.id !== this.recipeId) {
         this.recipeId = +params.id;
         this.refreshRecipe();

@@ -1,15 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Recipe } from 'src/app/data/recipe';
 import { RecipeService } from 'src/app/data/recipe.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list-item',
   templateUrl: './recipe-list-item.component.html',
   styleUrls: ['./recipe-list-item.component.css']
 })
-export class RecipeListItemComponent implements OnInit {
+export class RecipeListItemComponent implements OnInit, OnDestroy {
 
   @Input() recipeId: number;
+  subscriptions: Subscription;
 
   recipe: Recipe;
   openDropdown = false;
@@ -18,6 +20,10 @@ export class RecipeListItemComponent implements OnInit {
 
   ngOnInit() {
     this.initRecipe();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   toggleDropdown(): void {
@@ -29,7 +35,7 @@ export class RecipeListItemComponent implements OnInit {
   }
 
   initRecipe() {
-    this.recipeService.getRecipeById(this.recipeId).subscribe((recipe) => {
+    this.subscriptions = this.recipeService.getRecipeById(this.recipeId).subscribe((recipe) => {
       this.recipe = recipe;
     });
   }
