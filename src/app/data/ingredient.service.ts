@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of, merge } from 'rxjs';
 
 import { Ingredient } from './ingredient';
 
@@ -14,16 +15,16 @@ export class IngredientService {
         this.initIngredientList();
     }
 
-    getIngredients(): Ingredient[] {
-        return this.ingredientList;
+    getIngredients(): Observable<Ingredient[]> {
+        return of(this.ingredientList);
     }
 
-    getIngredientById(id: number): Ingredient {
+    getIngredientById(id: number): Observable<Ingredient> {
         const index = this.getIndexForIngredientId(id);
         if (index !== -1) {
-            return this.ingredientList[index];
+            return of(this.ingredientList[index]);
         } else {
-            return null;
+            return of(null);
         }
     }
 

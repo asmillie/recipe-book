@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { Ingredient } from '../../data/ingredient';
 import { IngredientService } from 'src/app/data/ingredient.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
-export class ShoppingListComponent implements OnInit {
+export class ShoppingListComponent implements OnInit, OnDestroy {
 
+  ingredientSubscription: Subscription;
   ingredients: Ingredient[];
 
   ingredientForm = this.fb.group({
@@ -24,7 +26,14 @@ export class ShoppingListComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.ingredients = this.ingredientService.getIngredients();
+    this.ingredientSubscription = this.ingredientService.getIngredients()
+      .subscribe((ingredient) => {
+        this.ingredients = ingredient;
+      });
+  }
+
+  ngOnDestroy() {
+    this.ingredientSubscription.unsubscribe();
   }
 
   deleteId(id: number) {
