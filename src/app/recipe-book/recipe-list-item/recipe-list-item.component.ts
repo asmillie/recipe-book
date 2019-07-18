@@ -35,9 +35,10 @@ export class RecipeListItemComponent implements OnInit, OnDestroy {
   }
 
   initRecipe() {
-    this.subscriptions = this.recipeService.getRecipeById(this.recipeId).subscribe((recipe) => {
-      this.recipe = recipe;
-    });
+    this.subscriptions = this.recipeService.getRecipeById(this.recipeId)
+      .subscribe((recipe) => {
+        this.recipe = recipe;
+      });
   }
 
   closeDropdown(): void {

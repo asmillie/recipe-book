@@ -18,8 +18,8 @@ export class RecipeService {
         }
     }
 
-    getRecipes(): Recipe[] {
-        return this.recipeList;
+    getRecipes(): Observable<Recipe[]> {
+        return of(this.recipeList);
     }
 
     getRecipeById(id: number): Observable<Recipe> {
