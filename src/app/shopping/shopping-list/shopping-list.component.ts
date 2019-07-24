@@ -55,4 +55,17 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.ingredientForm.reset();
   }
 
+  // Form Getters
+  get name() {
+    return this.ingredientForm.get('name');
+  }
+
+  get amount() {
+    return this.ingredientForm.get('amount');
+  }
+
+  get unit() {
+    return this.ingredientForm.get('unit');
+  }
+
 }

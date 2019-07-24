@@ -8,18 +8,52 @@
         <div class="form-row">
           <div class="col">
             <div class="form-group">
-              <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter Ingredient" required>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="name" 
+                formControlName="name" 
+                placeholder="Enter Ingredient" 
+                required
+                [class.is-invalid]="name.invalid && name.touched"
+                [class.is-valid]="name.valid && name.touched">
+                <div class="invalid-feedback" *ngIf="name.touched && name.invalid && name.errors.required">
+                  Name is required
+                </div>
             </div>
           </div>
           <div class="col">
             <div class="form-group">
-              <input type="text" class="form-control" id="amount" formControlName="amount" placeholder="Amount" required>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="amount" 
+                formControlName="amount" 
+                placeholder="Amount" 
+                required
+                [class.is-invalid]="amount.invalid && amount.touched"
+                [class.is-valid]="amount.valid && amount.touched">
+              <div class="invalid-feedback" *ngIf="amount.touched && amount.invalid && amount.errors.required">
+                Amount is required
+              </div>
             </div>
           </div>
           <div class="col">
             <div class="form-group">
-              <input type="text" class="form-control" id="unit" formControlName="unit" placeholder="Unit" aria-describedby="unitHelp" required>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="unit" 
+                formControlName="unit" 
+                placeholder="Unit" 
+                aria-describedby="unitHelp" 
+                required
+                [class.is-invalid]="unit.invalid && unit.touched"
+                [class.is-valid]="unit.valid && unit.touched">
               <small id="unitHelp" class="form-text text-muted">(ie. lbs, g, bag)</small>
+              <div class="invalid-feedback" *ngIf="unit.touched && unit.invalid && unit.errors.required">
+                Unit is required
+              </div>
             </div>
           </div>
           <div class="col-auto">
