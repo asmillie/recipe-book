@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from 'src/app/data/recipe';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { IngredientService } from 'src/app/data/ingredient.service';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
 
-  recipeId: number;
   recipe: Recipe;
   subscription: Subscription;
   showDropdown = false;
@@ -45,28 +44,18 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   editRecipe() {
-    this.router.navigate(['recipes/edit', this.recipeId]);
+    this.router.navigate(['recipes/edit', this.recipe.getId()]);
   }
 
   deleteRecipe() {
-    this.recipeService.deleteRecipeById(this.recipeId);
+    if (this.recipeService.deleteRecipeById(this.recipe.getId())) {
+      this.router.navigate(['/recipes']);
+    }
   }
 
   private initRecipe() {
-    this.subscription = this.route.params.subscribe((params: Params) => {
-      if (params.id !== this.recipeId) {
-        this.recipeId = +params.id;
-        this.refreshRecipe();
-      }
+    this.subscription = this.route.data.subscribe((data: { recipe: Recipe }) => {
+      this.recipe = data.recipe;
     });
-  }
-
-  private refreshRecipe() {
-    const value = this.recipeService.getRecipeById(this.recipeId);
-    if (value !== null) {
-      value.subscribe((recipe) => {
-        this.recipe = recipe;
-      });
-    }
   }
 }
