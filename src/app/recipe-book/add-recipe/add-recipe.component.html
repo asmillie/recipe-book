@@ -5,22 +5,61 @@
     </div>
   </div>
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+
     <div class="form-group row">
       <label for="name" class="col-md-2 col-form-label">Name</label>
       <div class="col-md-6">
-        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter name of recipe" required>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="name" 
+          formControlName="name" 
+          placeholder="Enter name of recipe" 
+          [class.is-invalid]="name.invalid && name.touched"
+          [class.is-valid]="name.valid && name.touched"
+          required>
+        <div class="invalid-feedback" *ngIf="name.touched && name.invalid && name.errors.required">
+          Name is required
+        </div>
       </div>
     </div>
+
     <div class="form-group row">
       <label for="imgPath" class="col-md-2 col-form-label">Image Path</label>
       <div class="col-md-6">
-        <input type="text" class="form-control" id="imgPath" formControlName="imgPath" placeholder="Enter path to image">
+        <input 
+          type="text" 
+          class="form-control" 
+          id="imgPath" 
+          formControlName="imgPath" 
+          placeholder="Enter path to image"
+          [class.is-invalid]="imgPath.invalid && imgPath.touched"
+          [class.is-valid]="imgPath.valid && imgPath.touched"
+          required>
+        <small id="imgHelp" class="form-text text-muted">Image must be of type .jpg, .jpeg or .png</small>
+        <div class="invalid-feedback" *ngIf="imgPath.touched && imgPath.invalid && imgPath.errors">
+          <p *ngIf="imgPath.errors.required">Image Path is required</p>
+          <p *ngIf="imgPath.errors.pattern">Invalid image type (Must be .jpg, .jpeg or .png)</p>
+        </div>
       </div>
     </div>
+
     <div class="form-group row">
       <label for="description" class="col-md-2 col-form-label">Description</label>
       <div class="col-md-6">
-        <textarea class="form-control" rows="4" id="description" formControlName="description" placeholder="Enter recipe description" required></textarea>
+        <textarea 
+          class="form-control" 
+          rows="4" 
+          id="description" 
+          formControlName="description" 
+          placeholder="Enter recipe description" 
+          required
+          [class.is-invalid]="description.invalid && description.touched"
+          [class.is-valid]="description.valid && description.touched"></textarea>
+        <div class="invalid-feedback" *ngIf="description.touched && description.invalid && description.errors">
+          <p *ngIf="description.errors.required">Description is required</p>
+          <p *ngIf="description.errors.minlength">Description must be at least 8 characters</p>
+        </div>
       </div>
     </div>
 

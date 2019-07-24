@@ -31,7 +31,9 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   private initRecipe() {
@@ -58,10 +60,15 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
       ],
       description: [
         '',
-        Validators.required
+        [
+          Validators.required,
+          Validators.minLength(8)]
       ],
       imgPath: [
-        ''
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^(http|https|\.\.){1}.+\.(jpg|jpeg|png){1}$')]
       ],
       ingredients: this.fb.array([])
     });
@@ -149,6 +156,18 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
 
   get ingredients() {
     return this.recipeForm.get('ingredients') as FormArray;
+  }
+
+  get name() {
+    return this.recipeForm.get('name');
+  }
+
+  get description() {
+    return this.recipeForm.get('description');
+  }
+
+  get imgPath() {
+    return this.recipeForm.get('imgPath');
   }
 
 }
