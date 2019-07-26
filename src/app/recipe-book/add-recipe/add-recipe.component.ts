@@ -74,7 +74,7 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
     });
 
     // Provide some ingredient fields to start with
-    let rows = 5;
+    let rows = 3;
     for (rows; rows > 0; rows--) {
       this.newIngredientRow();
     }
@@ -126,12 +126,12 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
       const amt = row.get('amount').value;
       const unit = row.get('unit').value;
 
-      if (name.length > 0 && amt.length > 0 && unit.length > 0) {
+      if (name.length > 0 && amt > 0 && unit.length > 0) {
         ingredients.push(new Ingredient(
           -1,
-          row.get('ingredientName').value,
-          row.get('amount').value,
-          row.get('unit').value
+          name,
+          amt,
+          unit
         ));
       }
     }
