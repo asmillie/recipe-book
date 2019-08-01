@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 import { Recipe } from './recipe';
 
@@ -9,26 +10,26 @@ import { MOCK_RECIPES } from './mock-recipes';
     providedIn: 'root'
 })
 export class RecipeService {
-    private recipeList: Recipe[];
+    private recipes: Subject<Recipe[]>;
+    private recipeList: Recipe[]; // Mock data that would typically be in a database on backend
 
     constructor() {
         if (this.recipeList === undefined || this.recipeList === null) {
             this.initRecipeList();
             this.recipeList = MOCK_RECIPES;
+            this.initRecipes();
         }
     }
 
-    getRecipes(): Observable<Recipe[]> {
-        return of(this.recipeList);
+    getRecipes(): Subject<Recipe[]> {
+        return this.recipes;
     }
 
     getRecipeById(id: number): Observable<Recipe> {
-        const index = this.getRecipeIndexById(id);
-        if (index !== -1) {
-            return of(this.recipeList[id]);
-        } else {
-            return of(null);
-        }
+        return this.recipes.pipe(
+            filter((recipeList) => recipeList.length > 0),
+            map((recipeList) => recipeList.find((recipe) => recipe.getId() === id))
+        );
     }
 
     getNextId(): number {
@@ -40,15 +41,16 @@ export class RecipeService {
         }
     }
 
-    addRecipe(recipe: Recipe): number {
-        this.recipeList.push(recipe);
-        return this.getRecipeIndexById(recipe.getId());
+    addRecipe(recipe: Recipe): void {
+        this.recipeList.push(recipe); // Data would be updated in DB here
+        this.refreshRecipes();
     }
 
     updateRecipe(recipe: Recipe): boolean {
         const index = this.getRecipeIndexById(recipe.getId());
         if (index !== -1) {
             this.recipeList.splice(index, 1, recipe);
+            this.refreshRecipes();
             return true;
         }
         return false;
@@ -58,6 +60,7 @@ export class RecipeService {
         const index = this.getRecipeIndexById(id);
         if (index !== -1) {
             this.recipeList.splice(index, 1);
+            this.refreshRecipes();
             return true;
         }
         return false;
@@ -65,6 +68,16 @@ export class RecipeService {
 
     private initRecipeList(): void {
         this.recipeList = [];
+    }
+
+    private initRecipes(): void {
+        this.recipes = new Subject<Recipe[]>();
+        this.refreshRecipes();
+    }
+
+    private refreshRecipes(): void {
+        // Call to backend would be made here to sync the data
+        this.recipes.next(this.recipeList);
     }
 
     private getRecipeIndexById(id: number): number {
