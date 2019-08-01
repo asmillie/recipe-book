@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { Recipe } from './recipe';
@@ -10,7 +10,7 @@ import { MOCK_RECIPES } from './mock-recipes';
     providedIn: 'root'
 })
 export class RecipeService {
-    private recipes: Subject<Recipe[]>;
+    private recipes: BehaviorSubject<Recipe[]>;
     private recipeList: Recipe[]; // Mock data that would typically be in a database on backend
 
     constructor() {
@@ -21,7 +21,7 @@ export class RecipeService {
         }
     }
 
-    getRecipes(): Subject<Recipe[]> {
+    getRecipes(): BehaviorSubject<Recipe[]> {
         return this.recipes;
     }
 
@@ -71,7 +71,7 @@ export class RecipeService {
     }
 
     private initRecipes(): void {
-        this.recipes = new Subject<Recipe[]>();
+        this.recipes = new BehaviorSubject(this.recipeList);
         this.refreshRecipes();
     }
 
