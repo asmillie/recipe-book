@@ -24,6 +24,12 @@
       </div>
     </div>
 
+    <div class="row my-1" *ngIf="imgPath.value !== ''">
+      <div class="col-md-6 offset-md-2">
+        <img class="img-fluid img-thumbnail rounded" [src]="imgPath.value" alt="Image Preview" style="max-height: 150px">
+      </div>
+    </div>
+
     <div class="form-group row">
       <label for="imgPath" class="col-md-2 col-form-label">Image Path</label>
       <div class="col-md-6">
@@ -35,14 +41,15 @@
           placeholder="Enter path to image"
           [class.is-invalid]="imgPath.invalid && imgPath.touched"
           [class.is-valid]="imgPath.valid && imgPath.touched"
-          required>
+          required
+          #imgPath>
         <small id="imgHelp" class="form-text text-muted">Image must be of type .jpg, .jpeg or .png</small>
         <div class="invalid-feedback" *ngIf="imgPath.touched && imgPath.invalid && imgPath.errors">
           <p *ngIf="imgPath.errors.required">Image Path is required</p>
           <p *ngIf="imgPath.errors.pattern">Invalid image type (Must be .jpg, .jpeg or .png)</p>
         </div>
       </div>
-    </div>
+    </div>    
 
     <div class="form-group row">
       <label for="description" class="col-md-2 col-form-label">Description</label>
