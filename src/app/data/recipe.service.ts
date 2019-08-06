@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { Recipe } from './recipe';
