@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { Recipe } from 'src/app/data/recipe';
-import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, RequiredValidator } from '@angular/forms';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Ingredient } from 'src/app/data/ingredient';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-recipe.component.css']
 })
 export class AddRecipeComponent implements OnInit, OnDestroy {
-
+  // TODO: Ingredient validation
   mode: string;
   recipe: Recipe;
   subscription: Subscription;
@@ -107,7 +107,7 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
         ingredientName,
         amount,
         unit
-      })
+      }, { validators: RequiredValidator })
     );
   }
 
