@@ -2,10 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Recipe } from '../../data/recipe';
 import { RecipeService } from 'src/app/data/recipe.service';
-import { Ingredient } from 'src/app/data/ingredient';
-import { IngredientService } from 'src/app/data/ingredient.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Subscription, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-list',
@@ -14,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
 
-  recipeSubscription: Subscription;
+  subscriptions: Subscription;
   recipeList: Recipe[];
   selectedRecipeId: number;
 
@@ -24,23 +23,28 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.selectedRecipeId = -1;
-    this.recipeSubscription = this.recipeService.getRecipes()
+    const recipeSub = this.recipeService.getRecipes()
       .subscribe((recipes) => {
         this.recipeList = recipes;
-        if (this.selectedRecipeId === -1) {
-          this.selectRecipeById(this.recipeList[0].getId());
-        }
+        this.selectFirstRecipe();
       });
+
+    this.subscriptions = recipeSub;
   }
 
   ngOnDestroy() {
-    this.recipeSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   selectRecipeById(id: number) {
     this.selectedRecipeId = id;
     this.router.navigate(['/recipes', id], { relativeTo: this.route });
+  }
+
+  private selectFirstRecipe() {
+    if (this.recipeList.length > 0) {
+      this.selectRecipeById(this.recipeList[0].getId());
+    }
   }
 
 }
