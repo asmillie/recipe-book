@@ -5,6 +5,7 @@ import { filter, map } from 'rxjs/operators';
 import { Recipe } from './recipe';
 
 import { MOCK_RECIPES } from './mock-recipes';
+import { AppRepositoryService } from './app-repository.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class RecipeService {
     private recipes: BehaviorSubject<Recipe[]>;
     private recipeList: Recipe[]; // Mock data that would typically be in a database on backend
 
-    constructor() {
+    constructor(private repository: AppRepositoryService) {
         if (this.recipeList === undefined || this.recipeList === null) {
             this.initRecipeList();
             this.recipeList = MOCK_RECIPES;
@@ -78,6 +79,7 @@ export class RecipeService {
     private refreshRecipes(): void {
         // Call to backend would be made here to sync the data
         this.recipes.next(this.recipeList);
+        // this.repository.getRecipes();
     }
 
     private getRecipeIndexById(id: number): number {
