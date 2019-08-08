@@ -107,7 +107,7 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
         ingredientName,
         amount,
         unit
-      }, { validators: RequiredValidator })
+      })
     );
   }
 
