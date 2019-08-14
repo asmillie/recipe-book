@@ -32,8 +32,8 @@ export class AppRepositoryService {
         for (const key in response) {
           if (response.hasOwnProperty(key)) {
             const recipeRes: RecipeResponse = response[key];
+
             const ingredients: Ingredient[] = [];
-            // TODO: Loop through ingredients in response object
             if (recipeRes.ingredients.length > 0) {
               const ingredientResponses: IngredientResponse[] = recipeRes.ingredients;
               ingredientResponses.forEach(({id, name, amount, unit}) => {

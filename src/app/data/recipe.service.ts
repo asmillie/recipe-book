@@ -45,9 +45,8 @@ export class RecipeService {
     addRecipe(recipe: Recipe): void {
         this.recipeList.push(recipe); // Data would be updated in DB here
         this.repository.saveRecipe(recipe).subscribe((recipeData) => {
-            console.log('Saved recipe ', recipeData);
+            this.refreshRecipes();
         });
-        this.refreshRecipes();
     }
 
     updateRecipe(recipe: Recipe): boolean {
