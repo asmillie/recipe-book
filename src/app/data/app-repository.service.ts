@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipe';
 import { Ingredient } from './ingredient';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { RecipeResponse } from './firebase/recipe-response';
+import { IngredientResponse } from './firebase/ingredient-response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +18,45 @@ export class AppRepositoryService {
 
   constructor(private http: HttpClient) { }
 
-  getRecipes() {
-    this.http.get(
+  getRecipes(): Observable<Recipe[]> {
+    return this.http.get<{ [key: string]: RecipeResponse }>(
       this.FIREBASE_BASE_URL + this.RECIPE_TABLE
-    ).subscribe((response = '') => {
-      console.log(response);
-    });
+    ).pipe(
+      map((response) => {
+        if (!response) {
+          return [];
+        }
+        console.log(response);
+        // Map response data to recipe array
+        const recipes: Recipe[] = [];
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            const recipeRes: RecipeResponse = response[key];
+            const ingredients: Ingredient[] = [];
+            // TODO: Loop through ingredients in response object
+            if (recipeRes.ingredients.length > 0) {
+              const ingredientResponses: IngredientResponse[] = recipeRes.ingredients;
+              ingredientResponses.forEach(({id, name, amount, unit}) => {
+                ingredients.push(
+                  new Ingredient(id, name, amount, unit)
+                );
+              });
+            }
+
+            recipes.push(
+              new Recipe(
+                recipeRes.id,
+                recipeRes.name,
+                recipeRes.description,
+                recipeRes.imagePath,
+                ingredients)
+            );
+          }
+        }
+
+        return recipes;
+      })
+    );
   }
 
   saveRecipe(recipe: Recipe): Observable<Recipe> {
