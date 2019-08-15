@@ -11,70 +11,71 @@ import { AppRepositoryService } from './app-repository.service';
     providedIn: 'root'
 })
 export class RecipeService {
+
     private recipes: BehaviorSubject<Recipe[]>;
-    private recipeList: Recipe[]; // Mock data that would typically be in a database on backend
+    // private recipeList: Recipe[]; // Mock data that would typically be in a database on backend
 
     constructor(private repository: AppRepositoryService) {
-        if (this.recipeList === undefined || this.recipeList === null) {
-            this.initRecipeList();
-            this.recipeList = MOCK_RECIPES;
-            this.initRecipes();
-        }
+        this.initRecipes();
+        // if (this.recipeList === undefined || this.recipeList === null) {
+        //     // this.initRecipeList();
+        //     this.initRecipes();
+        // }
     }
 
     getRecipes(): BehaviorSubject<Recipe[]> {
         return this.recipes;
     }
 
-    getRecipeById(id: number): Observable<Recipe> {
+    getRecipeById(id: string): Observable<Recipe> {
         return this.recipes.pipe(
             filter((recipeList) => recipeList.length > 0),
             map((recipeList) => recipeList.find((recipe) => recipe.getId() === id))
         );
     }
 
-    getNextId(): number {
-        const lastIndex = this.recipeList.length - 1;
-        if (lastIndex === -1) {
-            return 0;
-        } else {
-            return this.recipeList[lastIndex].getId() + 1;
-        }
-    }
+    // getNextId(): number {
+    //     const lastIndex = this.recipeList.length - 1;
+    //     if (lastIndex === -1) {
+    //         return 0;
+    //     } else {
+    //         return this.recipeList[lastIndex].getId() + 1;
+    //     }
+    // }
 
     addRecipe(recipe: Recipe): void {
-        this.recipeList.push(recipe); // Data would be updated in DB here
+        // this.recipeList.push(recipe);
         this.repository.saveRecipe(recipe).subscribe((recipeData) => {
             this.refreshRecipes();
         });
     }
 
     updateRecipe(recipe: Recipe): boolean {
-        const index = this.getRecipeIndexById(recipe.getId());
-        if (index !== -1) {
-            this.recipeList.splice(index, 1, recipe);
-            this.refreshRecipes();
-            return true;
-        }
+        // const index = this.getRecipeIndexById(recipe.getId());
+        // if (index !== -1) {
+        //     this.recipeList.splice(index, 1, recipe);
+        //     this.refreshRecipes();
+        //     return true;
+        // }
         return false;
     }
 
-    deleteRecipeById(id: number): boolean {
-        const index = this.getRecipeIndexById(id);
-        if (index !== -1) {
-            this.recipeList.splice(index, 1);
-            this.refreshRecipes();
-            return true;
-        }
+    deleteRecipeById(id: string): boolean {
+        // const index = this.getRecipeIndexById(id);
+        // if (index !== -1) {
+        //     this.recipeList.splice(index, 1);
+        //     this.refreshRecipes();
+        //     return true;
+        // }
         return false;
     }
 
-    private initRecipeList(): void {
-        this.recipeList = [];
-    }
+    // private initRecipeList(): void {
+    //     this.recipeList = [];
+    // }
 
     private initRecipes(): void {
-        this.recipes = new BehaviorSubject(this.recipeList);
+        this.recipes = new BehaviorSubject([]);
         this.refreshRecipes();
     }
 
@@ -84,7 +85,7 @@ export class RecipeService {
         });
     }
 
-    private getRecipeIndexById(id: number): number {
-        return this.recipeList.findIndex(recipe => recipe.getId() === id);
-    }
+    // private getRecipeIndexById(id: number): number {
+    //     return this.recipeList.findIndex(recipe => recipe.getId() === id);
+    // }
 }

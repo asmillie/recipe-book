@@ -15,7 +15,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription;
   recipeList: Recipe[];
-  selectedRecipeId: number;
+  selectedRecipeId: string;
 
   constructor(
     private recipeService: RecipeService,
@@ -36,7 +36,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  selectRecipeById(id: number) {
+  selectRecipeById(id: string) {
     this.selectedRecipeId = id;
     this.router.navigate(['/recipes', id], { relativeTo: this.route });
   }

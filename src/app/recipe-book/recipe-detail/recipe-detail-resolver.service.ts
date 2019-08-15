@@ -21,7 +21,7 @@ export class RecipeDetailResolverService implements Resolve<Recipe> {
 
     const id = route.paramMap.get('id');
 
-    return this.recipeService.getRecipeById(+id).pipe(
+    return this.recipeService.getRecipeById(id).pipe(
       take(1),
       mergeMap(recipe => {
         if (recipe) {

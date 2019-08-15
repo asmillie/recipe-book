@@ -13,14 +13,15 @@ import { IngredientResponse } from './firebase/ingredient-response';
 export class AppRepositoryService {
 
   private FIREBASE_BASE_URL = 'https://udemy-ng-recipe-book-3e7f3.firebaseio.com/';
-  private RECIPE_TABLE = 'recipes.json';
-  private INGREDIENT_TABLE = 'ingredients.json';
+  private FIREBASE_URL_SUFFIX = '.json';
+  private RECIPE_TABLE = 'recipes';
+  private INGREDIENT_TABLE = 'ingredients';
 
   constructor(private http: HttpClient) { }
 
   getRecipes(): Observable<Recipe[]> {
-    return this.http.get<{ [key: string]: RecipeResponse }>(
-      this.FIREBASE_BASE_URL + this.RECIPE_TABLE
+    return this.http.get<{ [recipeId: string]: RecipeResponse }>(
+      this.FIREBASE_BASE_URL + this.RECIPE_TABLE + this.FIREBASE_URL_SUFFIX
     ).pipe(
       map((response) => {
         if (!response) {
@@ -29,9 +30,9 @@ export class AppRepositoryService {
         console.log(response);
         // Map response data to recipe array
         const recipes: Recipe[] = [];
-        for (const key in response) {
-          if (response.hasOwnProperty(key)) {
-            const recipeRes: RecipeResponse = response[key];
+        for (const recipeId in response) {
+          if (response.hasOwnProperty(recipeId)) {
+            const recipeRes: RecipeResponse = response[recipeId];
 
             const ingredients: Ingredient[] = [];
             if (recipeRes.ingredients.length > 0) {
@@ -45,7 +46,7 @@ export class AppRepositoryService {
 
             recipes.push(
               new Recipe(
-                recipeRes.id,
+                recipeId,
                 recipeRes.name,
                 recipeRes.description,
                 recipeRes.imagePath,
@@ -61,16 +62,25 @@ export class AppRepositoryService {
 
   saveRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http.post<Recipe>(
-      this.FIREBASE_BASE_URL + this.RECIPE_TABLE,
+      this.FIREBASE_BASE_URL + this.RECIPE_TABLE + this.FIREBASE_URL_SUFFIX,
       recipe
     ).pipe(
       catchError(this.handleError)
     );
   }
 
+  updateRecipe(recipe: Recipe): Observable<Recipe> {
+    return this.http.patch<Recipe>(
+      `${this.FIREBASE_BASE_URL}${this.RECIPE_TABLE}/${recipe.getId()}${this.FIREBASE_URL_SUFFIX}`,
+      recipe
+    ).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   saveIngredient(ingredient: Ingredient) {
     return this.http.post<Ingredient>(
-      this.FIREBASE_BASE_URL + this.INGREDIENT_TABLE,
+      this.FIREBASE_BASE_URL + this.INGREDIENT_TABLE + this.FIREBASE_URL_SUFFIX,
       ingredient
     ).pipe(
       catchError(this.handleError)

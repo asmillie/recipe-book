@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class RecipeListItemComponent implements OnInit, OnDestroy {
 
-  @Input() recipeId: number;
+  @Input() recipeId: string;
   subscriptions: Subscription;
 
   recipe: Recipe;

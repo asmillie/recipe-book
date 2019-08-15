@@ -1,13 +1,13 @@
 import { Ingredient } from './ingredient';
 
 export class Recipe {
-    private id: number;
+    private id: string;
     private name: string;
     private description: string;
     private imagePath: string;
     private ingredients: Ingredient[];
 
-    constructor(id: number, name: string, desc: string, imgPath: string, ingredients: Ingredient[] = []) {
+    constructor(id: string, name: string, desc: string, imgPath: string, ingredients: Ingredient[] = []) {
         this.id = id;
         this.name = name;
         this.description = desc;
@@ -15,7 +15,7 @@ export class Recipe {
         this.ingredients = ingredients;
     }
 
-    public getId(): number {
+    public getId(): string {
         return this.id;
     }
 

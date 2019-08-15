@@ -17,7 +17,7 @@ const ingredients = [
 
 export const MOCK_RECIPES: Recipe[] = [
     new Recipe(
-        0,
+        null,
         'Chocolate Chip Cookies',
         'Preheat oven to 350 degrees F (175 degrees C). \
         Cream together the butter, white sugar, and brown sugar until smooth. Beat in the eggs one at a time, then stir in the vanilla. \
@@ -26,7 +26,7 @@ export const MOCK_RECIPES: Recipe[] = [
         '../../../assets/img/cookie.jpg',
         ingredients),
     new Recipe(
-        1,
+        null,
         'Chocolate Chip Cookies',
         'Preheat oven to 350 degrees F (175 degrees C). \
         Cream together the butter, white sugar, and brown sugar until smooth. Beat in the eggs one at a time, then stir in the vanilla. \

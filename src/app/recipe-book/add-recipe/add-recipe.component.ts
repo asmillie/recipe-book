@@ -37,9 +37,9 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
   }
 
   private initRecipe() {
-    this.route.params.subscribe(({id = -1}) => {
-      if (id !== -1) {
-        this.subscription = this.recipeService.getRecipeById(+id).subscribe((recipe) => {
+    this.route.params.subscribe(({id = null}) => {
+      if (id !== null) {
+        this.subscription = this.recipeService.getRecipeById(id).subscribe((recipe) => {
           if (recipe !== null) {
             this.recipe = recipe;
             this.populateForm();
@@ -116,7 +116,7 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const recipeId = this.mode === 'add' ? this.recipeService.getNextId() : this.recipe.getId();
+    const recipeId = this.mode === 'add' ? null : this.recipe.getId();
 
     const ingredients: Ingredient[] = [];
     const rows = this.recipeForm.get('ingredients').length;
