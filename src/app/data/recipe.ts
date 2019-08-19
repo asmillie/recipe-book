@@ -42,6 +42,10 @@ export class Recipe {
         return this.ingredients;
     }
 
+    public setId(id: string) {
+        this.id = id;
+    }
+
     public setName(name: string) {
         this.name = name;
     }

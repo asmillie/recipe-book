@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Recipe, IRecipe } from './recipe';
 import { Ingredient, IIngredient } from './ingredient';
 import { catchError, map } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -25,7 +25,6 @@ export class AppRepositoryService {
         if (!response) {
           return [];
         }
-        console.log(response);
         // Map response data to recipe array
         const recipes: Recipe[] = [];
         for (const recipeId in response) {
@@ -59,7 +58,7 @@ export class AppRepositoryService {
   }
 
   saveRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(
+    return this.http.post<{ recipeId: string }>(
       this.FIREBASE_BASE_URL + this.RECIPE_TABLE + this.FIREBASE_URL_SUFFIX,
       {
         name: recipe.getName(),
@@ -68,16 +67,30 @@ export class AppRepositoryService {
         ingredients: recipe.getIngredients()
       }
     ).pipe(
-      catchError(this.handleError)
+      catchError(this.handleError),
+      map((response) => {
+        console.log(response);
+        recipe.setId(response.recipeId);
+        return recipe;
+      })
     );
   }
 
   updateRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.http.patch<Recipe>(
+    return this.http.patch<{ [recipeId: string ]: IRecipe }>(
       `${this.FIREBASE_BASE_URL}${this.RECIPE_TABLE}/${recipe.getId()}${this.FIREBASE_URL_SUFFIX}`,
-      recipe
+      {
+        name: recipe.getName(),
+        description: recipe.getDescription(),
+        imagePath: recipe.getImagePath(),
+        ingredients: recipe.getIngredients()
+      }
     ).pipe(
-      catchError(this.handleError)
+      catchError(this.handleError),
+      map((response) => {
+        console.log(response);
+        return null;
+      })
     )
   }
 
