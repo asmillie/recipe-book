@@ -63,7 +63,12 @@ export class AppRepositoryService {
   saveRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http.post<Recipe>(
       this.FIREBASE_BASE_URL + this.RECIPE_TABLE + this.FIREBASE_URL_SUFFIX,
-      recipe
+      {
+        name: recipe.getName(),
+        description: recipe.getDescription(),
+        imagePath: recipe.getImagePath(),
+        ingredients: recipe.getIngredients()
+      }
     ).pipe(
       catchError(this.handleError)
     );

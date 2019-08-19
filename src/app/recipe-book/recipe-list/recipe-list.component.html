@@ -8,7 +8,7 @@
         </app-recipe-list-item>
     </div>
   </div>
-  <div *ngIf="selectedRecipeId > -1;else noRecipeSelected" class="col-8 border rounded-right">
+  <div *ngIf="selectedRecipeId !== '';else noRecipeSelected" class="col-8 border rounded-right">
     <router-outlet></router-outlet>
   </div> 
   <ng-template #noRecipeSelected>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from 'src/app/data/recipe';
-import { Subscription, Observable, of, EMPTY } from 'rxjs';
+import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap, take } from 'rxjs/operators';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
