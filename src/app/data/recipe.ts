@@ -1,4 +1,11 @@
-import { Ingredient } from './ingredient';
+import { Ingredient, IIngredient } from './ingredient';
+
+export interface IRecipe {
+    name: string;
+    description: string;
+    imagePath: string;
+    ingredients: IIngredient[];
+}
 
 export class Recipe {
     private id: string;

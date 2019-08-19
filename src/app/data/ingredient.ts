@@ -1,3 +1,10 @@
+export interface IIngredient {
+    id: number;
+    name: string;
+    amount: number;
+    unit: string;
+}
+
 export class Ingredient {
     private id: number;
     private name: string;

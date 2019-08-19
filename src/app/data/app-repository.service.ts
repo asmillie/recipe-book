@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from './recipe';
-import { Ingredient } from './ingredient';
+import { Recipe, IRecipe } from './recipe';
+import { Ingredient, IIngredient } from './ingredient';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { RecipeResponse } from './firebase/recipe-response';
-import { IngredientResponse } from './firebase/ingredient-response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +18,7 @@ export class AppRepositoryService {
   constructor(private http: HttpClient) { }
 
   getRecipes(): Observable<Recipe[]> {
-    return this.http.get<{ [recipeId: string]: RecipeResponse }>(
+    return this.http.get<{ [recipeId: string]: IRecipe }>(
       this.FIREBASE_BASE_URL + this.RECIPE_TABLE + this.FIREBASE_URL_SUFFIX
     ).pipe(
       map((response) => {
@@ -32,11 +30,11 @@ export class AppRepositoryService {
         const recipes: Recipe[] = [];
         for (const recipeId in response) {
           if (response.hasOwnProperty(recipeId)) {
-            const recipeRes: RecipeResponse = response[recipeId];
+            const recipeRes: IRecipe = response[recipeId];
 
             const ingredients: Ingredient[] = [];
             if (recipeRes.ingredients.length > 0) {
-              const ingredientResponses: IngredientResponse[] = recipeRes.ingredients;
+              const ingredientResponses: IIngredient[] = recipeRes.ingredients;
               ingredientResponses.forEach(({id, name, amount, unit}) => {
                 ingredients.push(
                   new Ingredient(id, name, amount, unit)
@@ -92,7 +90,7 @@ export class AppRepositoryService {
     );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred: ', error.error.message);
     } else {
