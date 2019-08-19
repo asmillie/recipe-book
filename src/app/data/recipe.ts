@@ -2,16 +2,17 @@ import { Ingredient } from './ingredient';
 
 export class Recipe {
     private id: string;
-    private data: {
-        name: string;
-        description: string;
-        imagePath: string;
-        ingredients: Ingredient[];
-    };
+    private name: string;
+    private description: string;
+    private imagePath: string;
+    private ingredients: Ingredient[];
 
     constructor(id: string, name: string, description: string, imagePath: string, ingredients: Ingredient[]) {
         this.id = id;
-        this.data = { name, description, imagePath, ingredients };
+        this.name = name;
+        this.description = description;
+        this.imagePath = imagePath;
+        this.ingredients = ingredients;
     }
 
     public getId(): string {
@@ -19,34 +20,34 @@ export class Recipe {
     }
 
     public getName(): string {
-        return this.data.name;
+        return this.name;
     }
 
     public getDescription(): string {
-        return this.data.description;
+        return this.description;
     }
 
     public getImagePath(): string {
-        return this.data.imagePath;
+        return this.imagePath;
     }
 
     public getIngredients(): Ingredient[] {
-        return this.data.ingredients;
+        return this.ingredients;
     }
 
     public setName(name: string) {
-        this.data.name = name;
+        this.name = name;
     }
 
     public setDescription(desc: string) {
-        this.data.description = desc;
+        this.description = desc;
     }
 
     public setImagePath(path: string) {
-        this.data.imagePath = path;
+        this.imagePath = path;
     }
 
     public setIngredients(ingredients: Ingredient[]) {
-        this.data.ingredients = ingredients;
+        this.ingredients = ingredients;
     }
 }
