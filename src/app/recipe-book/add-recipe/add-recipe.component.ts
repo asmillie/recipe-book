@@ -116,7 +116,7 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const recipeId = this.mode === 'add' ? null : this.recipe.getId();
+    const recipeId = this.mode === 'add' ? '' : this.recipe.getId();
 
     const ingredients: Ingredient[] = [];
     const rows = this.recipeForm.get('ingredients').length;
