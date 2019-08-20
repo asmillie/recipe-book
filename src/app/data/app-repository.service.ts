@@ -94,13 +94,16 @@ export class AppRepositoryService {
   }
 
   deleteRecipe(id: string): Observable<boolean> {
-    return this.http.delete(
+    return this.http.delete<{ response: string }>(
       `${this.FIREBASE_BASE_URL}${this.RECIPE_TABLE}/${id}${this.FIREBASE_URL_SUFFIX}`
     ).pipe(
       catchError(this.handleError),
       map((response) => {
-        console.log(response)
-        return true;
+        if (response === null) {
+          return true;
+        } else {
+          return false;
+        }
       })
     );
   }

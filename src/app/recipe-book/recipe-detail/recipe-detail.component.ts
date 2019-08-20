@@ -16,6 +16,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   showDropdown = false;
   addedToShopping = false;
+  error = false;
 
   constructor(
     private recipeService: RecipeService,
@@ -49,8 +50,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   deleteRecipe() {
     // TODO: Confirm deletion before navigating away
-    this.recipeService.deleteRecipeById(this.recipe.getId())
-    this.router.navigate(['/recipes']);
+    this.error = false;
+    this.recipeService.deleteRecipeById(this.recipe.getId()).subscribe((success) => {
+      if (success) {
+        this.router.navigate(['/recipes']);
+      } else {
+        this.error = true;
+      }
+    });
   }
 
   private initRecipe() {

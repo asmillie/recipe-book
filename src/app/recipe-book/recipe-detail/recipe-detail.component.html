@@ -1,5 +1,10 @@
-<section id="recipe-detail" *ngIf="recipe;else empty_recipe">  
-  <div class="row mb-2 justify-content-between">
+<section id="recipe-detail" *ngIf="recipe;else empty_recipe"> 
+  <div class="row" *ngIf="error">
+    <div class="col mx-1 alert alert-danger" role="alert">
+      <p>Error deleting recipe, please try again</p>
+    </div>
+  </div> 
+  <div class="row mb-2 justify-content-between">    
     <div class="col-md-auto">
       <h2>{{recipe.name}}</h2>
     </div>

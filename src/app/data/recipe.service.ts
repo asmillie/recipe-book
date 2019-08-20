@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { Recipe } from './recipe';
 
@@ -40,12 +40,14 @@ export class RecipeService {
         });
     }
 
-    deleteRecipeById(id: string): void {
-        this.repository.deleteRecipe(id).subscribe((response) => {
-            if (response) {
-                this.refreshRecipes();
-            }
-        });
+    deleteRecipeById(id: string): Observable<boolean> {
+        return this.repository.deleteRecipe(id).pipe(
+            tap((success) => {
+                if (success) {
+                    this.refreshRecipes();
+                }
+            })
+        );
     }
 
     private initRecipes(): void {
