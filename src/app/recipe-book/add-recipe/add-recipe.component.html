@@ -24,9 +24,13 @@
       </div>
     </div>
 
-    <div class="row my-1" *ngIf="imgPath.value !== ''">
+    <div class="row my-1">
       <div class="col-md-6 offset-md-2">
-        <img class="img-fluid img-thumbnail rounded" [src]="imgPath.value" alt="Image Preview" style="max-height: 150px">
+        <img 
+          class="img-fluid img-thumbnail rounded" 
+          [src]="imagePreview" 
+          alt="Image Preview" 
+          style="max-height: 150px">
       </div>
     </div>
 
