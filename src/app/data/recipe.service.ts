@@ -44,7 +44,6 @@ export class RecipeService {
     // }
 
     addRecipe(recipe: Recipe): void {
-        // this.recipeList.push(recipe);
         this.repository.saveRecipe(recipe).subscribe((recipeData) => {
             this.refreshRecipes();
         });
