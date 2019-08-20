@@ -15,10 +15,6 @@ export class RecipeService {
 
     constructor(private repository: AppRepositoryService) {
         this.initRecipes();
-        // if (this.recipeList === undefined || this.recipeList === null) {
-        //     // this.initRecipeList();
-        //     this.initRecipes();
-        // }
     }
 
     getRecipes(): BehaviorSubject<Recipe[]> {
@@ -44,14 +40,12 @@ export class RecipeService {
         });
     }
 
-    deleteRecipeById(id: string): boolean {
-        // const index = this.getRecipeIndexById(id);
-        // if (index !== -1) {
-        //     this.recipeList.splice(index, 1);
-        //     this.refreshRecipes();
-        //     return true;
-        // }
-        return false;
+    deleteRecipeById(id: string): void {
+        this.repository.deleteRecipe(id).subscribe((response) => {
+            if (response) {
+                this.refreshRecipes();
+            }
+        });
     }
 
     private initRecipes(): void {

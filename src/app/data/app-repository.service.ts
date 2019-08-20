@@ -87,9 +87,20 @@ export class AppRepositoryService {
       }
     ).pipe(
       catchError(this.handleError),
+      map(() => {
+        return recipe;
+      })
+    );
+  }
+
+  deleteRecipe(id: string): Observable<boolean> {
+    return this.http.delete(
+      `${this.FIREBASE_BASE_URL}${this.RECIPE_TABLE}/${id}${this.FIREBASE_URL_SUFFIX}`
+    ).pipe(
+      catchError(this.handleError),
       map((response) => {
-        console.log(response);
-        return null;
+        console.log(response)
+        return true;
       })
     );
   }
