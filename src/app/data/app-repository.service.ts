@@ -91,7 +91,7 @@ export class AppRepositoryService {
         console.log(response);
         return null;
       })
-    )
+    );
   }
 
   saveIngredient(ingredient: Ingredient) {

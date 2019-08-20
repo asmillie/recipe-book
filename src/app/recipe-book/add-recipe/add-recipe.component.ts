@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
 import { RecipeService } from 'src/app/data/recipe.service';
 import { Recipe } from 'src/app/data/recipe';
 import { FormBuilder, Validators, FormArray, RequiredValidator } from '@angular/forms';
@@ -13,10 +13,14 @@ import { Subscription } from 'rxjs';
 })
 export class AddRecipeComponent implements OnInit, OnDestroy {
   // TODO: Ingredient validation
+
+  private IMAGE_PLACEHOLDER = '../../../assets/img/image.png';
+
   mode: string;
   recipe: Recipe;
   subscription: Subscription;
   recipeForm;
+  imagePreview: string;
 
   constructor(
     private recipeService: RecipeService,
@@ -25,9 +29,10 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.mode = this.route.snapshot.url[0].toString();
+    this.mode = this.route.snapshot.url[0].path.toString();
     this.initForm();
     this.initRecipe();
+    this.initImagePreview();
   }
 
   ngOnDestroy() {
@@ -98,6 +103,17 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
         this.newIngredientRow(ingredient.getName(), ingredient.getAmount(), ingredient.getUnit());
       }
       ingredientIndex++;
+    });
+  }
+
+  private initImagePreview() {
+    this.imagePreview = this.IMAGE_PLACEHOLDER;
+    this.recipeForm.get('imgPath').statusChanges.forEach((status) => {
+      if (status === 'VALID') {
+        this.imagePreview = this.recipeForm.get('imgPath').value;
+      } else {
+        this.imagePreview = this.IMAGE_PLACEHOLDER;
+      }
     });
   }
 

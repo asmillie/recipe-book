@@ -50,14 +50,10 @@ export class RecipeService {
         });
     }
 
-    updateRecipe(recipe: Recipe): boolean {
-        // const index = this.getRecipeIndexById(recipe.getId());
-        // if (index !== -1) {
-        //     this.recipeList.splice(index, 1, recipe);
-        //     this.refreshRecipes();
-        //     return true;
-        // }
-        return false;
+    updateRecipe(recipe: Recipe): void {
+        this.repository.updateRecipe(recipe).subscribe((recipeData) => {
+            this.refreshRecipes();
+        });
     }
 
     deleteRecipeById(id: string): boolean {
