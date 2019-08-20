@@ -4,7 +4,6 @@ import { filter, map } from 'rxjs/operators';
 
 import { Recipe } from './recipe';
 
-import { MOCK_RECIPES } from './mock-recipes';
 import { AppRepositoryService } from './app-repository.service';
 
 @Injectable({
@@ -13,7 +12,6 @@ import { AppRepositoryService } from './app-repository.service';
 export class RecipeService {
 
     private recipes: BehaviorSubject<Recipe[]>;
-    // private recipeList: Recipe[]; // Mock data that would typically be in a database on backend
 
     constructor(private repository: AppRepositoryService) {
         this.initRecipes();
@@ -33,15 +31,6 @@ export class RecipeService {
             map((recipeList) => recipeList.find((recipe) => recipe.getId() === id))
         );
     }
-
-    // getNextId(): number {
-    //     const lastIndex = this.recipeList.length - 1;
-    //     if (lastIndex === -1) {
-    //         return 0;
-    //     } else {
-    //         return this.recipeList[lastIndex].getId() + 1;
-    //     }
-    // }
 
     addRecipe(recipe: Recipe): void {
         this.repository.saveRecipe(recipe).subscribe((recipeData) => {
@@ -65,10 +54,6 @@ export class RecipeService {
         return false;
     }
 
-    // private initRecipeList(): void {
-    //     this.recipeList = [];
-    // }
-
     private initRecipes(): void {
         this.recipes = new BehaviorSubject([]);
         this.refreshRecipes();
@@ -79,8 +64,4 @@ export class RecipeService {
             this.recipes.next(recipes);
         });
     }
-
-    // private getRecipeIndexById(id: number): number {
-    //     return this.recipeList.findIndex(recipe => recipe.getId() === id);
-    // }
 }
