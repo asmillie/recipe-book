@@ -27,7 +27,8 @@ export class RecipeService {
             map((recipeList) => recipeList.find((recipe) => recipe.getId() === id))
         );
     }
-
+    // TODO: Service should return the observable to component can unsubscribe
+    // when finished
     addRecipe(recipe: Recipe): void {
         this.repository.saveRecipe(recipe).subscribe((recipeData) => {
             this.refreshRecipes();
