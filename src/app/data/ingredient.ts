@@ -1,24 +1,24 @@
 export interface IIngredient {
-    id: number;
+    id: string;
     name: string;
     amount: number;
     unit: string;
 }
 
 export class Ingredient {
-    private id: number;
+    private id: string;
     private name: string;
     private amount: number;
     private unit: string;
 
-    constructor(id: number, name: string, amount: number, unit: string) {
+    constructor(id: string, name: string, amount: number, unit: string) {
         this.id = id;
         this.name = name;
         this.amount = amount;
         this.unit = unit;
     }
 
-    public getId(): number {
+    public getId(): string {
         return this.id;
     }
 
@@ -34,7 +34,7 @@ export class Ingredient {
         return this.unit;
     }
 
-    public setId(id: number) {
+    public setId(id: string) {
         this.id = id;
     }
 

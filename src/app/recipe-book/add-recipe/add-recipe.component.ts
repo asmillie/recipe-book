@@ -144,7 +144,7 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
 
       if (name.length > 0 && amt > 0 && unit.length > 0) {
         ingredients.push(new Ingredient(
-          -1,
+          null,
           name,
           amt,
           unit

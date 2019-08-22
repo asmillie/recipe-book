@@ -1,79 +1,57 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, merge } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Ingredient } from './ingredient';
 
-import { MOCK_INGREDIENTS } from './mock-ingredients';
+import { AppRepositoryService } from './app-repository.service';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class IngredientService {
-    ingredientList: Ingredient[];
 
-    constructor() {
-        this.initIngredientList();
+    private ingredients: BehaviorSubject<Ingredient[]>;
+
+    constructor(private repository: AppRepositoryService) {
+        this.initIngredients();
+        this.refreshIngredients();
     }
 
     getIngredients(): Observable<Ingredient[]> {
-        return of(this.ingredientList);
+        return this.ingredients;
     }
 
-    getIngredientById(id: number): Observable<Ingredient> {
-        const index = this.getIndexForIngredientId(id);
-        if (index !== -1) {
-            return of(this.ingredientList[index]);
-        } else {
-            return of(null);
-        }
-    }
-
-    getNextId(): number {
-        const lastIndex = this.ingredientList.length - 1;
-        if (lastIndex === -1) {
-            return 0;
-        } else {
-            return this.ingredientList[lastIndex].getId() + 1;
-        }
+    getIngredientById(id: string): Observable<Ingredient> {
+        return this.ingredients.pipe(
+            filter((ingredientList) => ingredientList.length > 0),
+            map((ingredientList) => ingredientList.find((ingredient) => ingredient.getId() === id))
+        );
     }
 
     addIngredient(ingredient: Ingredient) {
-        // Ingredients being added from a recipe need an id assigned
-        if (ingredient.getId() === -1) {
-            ingredient.setId(this.getNextId());
-        }
-        this.ingredientList.push(ingredient);
+        return this.repository.saveIngredients(ingredient);
     }
 
-    addIngredients(ingredients: Ingredient[]) {
-        ingredients.forEach((ingredient) => {
-            this.addIngredient(ingredient);
-        });
+    addIngredients(ingredients: Ingredient[]): Observable<Ingredient[]> {
+        return this.repository.saveIngredients(...ingredients);
     }
 
     updateIngredient(ingredient: Ingredient): boolean {
-        const index = this.getIndexForIngredientId(ingredient.getId());
-        if (index === -1) {
-            return false;
-        }
-        this.ingredientList.splice(index, 1, ingredient);
         return true;
     }
 
-    deleteIngredientById(id: number): boolean {
-        const index = this.getIndexForIngredientId(id);
-        if (index === -1) {
-            return false;
-        }
-        this.ingredientList.splice(index, 1);
+    deleteIngredientById(id: string): boolean {
         return true;
     }
 
-    private initIngredientList() {
-        this.ingredientList = MOCK_INGREDIENTS;
+    private initIngredients(): void {
+        this.ingredients = new BehaviorSubject([]);
     }
 
-    private getIndexForIngredientId(id: number): number {
-        return this.ingredientList.findIndex((ing) => ing.getId() === id);
+    private refreshIngredients(): void {
+        this.repository.getIngredients().subscribe((ingredients) => {
+            this.ingredients.next(ingredients);
+        });
     }
 }

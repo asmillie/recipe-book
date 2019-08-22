@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class ShoppingListItemComponent implements OnInit, OnDestroy {
 
-  @Input() ingredientId: number;
+  @Input() ingredientId: string;
   ingredientSubscription: Subscription;
   ingredient: Ingredient;
 

@@ -36,7 +36,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.ingredientSubscription.unsubscribe();
   }
 
-  deleteId(id: number) {
+  deleteId(id: string) {
     const deleted = this.ingredientService.deleteIngredientById(id);
     if (!deleted) {
       console.log('error deleting ingredient');
@@ -45,12 +45,15 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const ingredient = new Ingredient(
-      this.ingredientService.getNextId(),
+      null,
       this.ingredientForm.get('name').value,
       this.ingredientForm.get('amount').value,
       this.ingredientForm.get('unit').value
     );
-    this.ingredientService.addIngredient(ingredient);
+    // TODO: Finish saving ingredient(s) to firebase
+    this.ingredientService.addIngredient(ingredient).subscribe((response) => {
+      console.log(response);
+    });
 
     this.ingredientForm.reset();
   }

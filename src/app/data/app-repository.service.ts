@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Recipe, IRecipe } from './recipe';
 import { Ingredient, IIngredient } from './ingredient';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, throwError, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
@@ -108,10 +108,25 @@ export class AppRepositoryService {
     );
   }
 
-  saveIngredient(ingredient: Ingredient) {
-    return this.http.post<Ingredient>(
+  getIngredients(): Observable<Ingredient[]> {
+    return this.http.get<{ [ ingredientId: string ]: IIngredient }>(
+      this.FIREBASE_BASE_URL + this.INGREDIENT_TABLE + this.FIREBASE_URL_SUFFIX
+    ).pipe(
+      map((response) => {
+        if (!response) {
+          return [];
+        }
+
+        console.log(response);
+        return [];
+      })
+    );
+  }
+
+  saveIngredients(...ingredients: Ingredient[]) {
+    return this.http.post<Ingredient[]>(
       this.FIREBASE_BASE_URL + this.INGREDIENT_TABLE + this.FIREBASE_URL_SUFFIX,
-      ingredient
+      ingredients
     ).pipe(
       catchError(this.handleError)
     );
