@@ -39,7 +39,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   addToShopping() {
     const ingredients = this.recipe.getIngredients();
     if (ingredients.length > 0) {
-      this.ingredientService.addIngredients(ingredients);
+      const addIngredientsSub = this.ingredientService.addIngredients(ingredients).subscribe((response) => {
+        console.log(response);
+      });
+      this.subscription.add(addIngredientsSub);
       this.addedToShopping = true;
     }
   }

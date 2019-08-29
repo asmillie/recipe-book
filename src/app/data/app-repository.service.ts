@@ -5,6 +5,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, throwError, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
+import { UniqueIdGenerator } from '../utils/utils';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -112,21 +114,72 @@ export class AppRepositoryService {
     return this.http.get<{ [ ingredientId: string ]: IIngredient }>(
       this.FIREBASE_BASE_URL + this.INGREDIENT_TABLE + this.FIREBASE_URL_SUFFIX
     ).pipe(
+      catchError(this.handleError),
       map((response) => {
         if (!response) {
           return [];
         }
 
-        console.log(response);
-        return [];
+        const ingredients: Ingredient[] = [];
+        for (const ingredientId in response) {
+          if (response.hasOwnProperty(ingredientId)) {
+            const ingredientRes: IIngredient = response[ingredientId];
+
+            ingredients.push(
+              new Ingredient(
+                ingredientId,
+                ingredientRes.name,
+                ingredientRes.amount,
+                ingredientRes.unit
+              )
+            );
+          }
+        }
+
+        return ingredients;
       })
     );
   }
 
   saveIngredients(...ingredients: Ingredient[]) {
-    return this.http.post<Ingredient[]>(
+    // Transform ingredient array into JSON object containing
+    // list of ingredient objects. Each ingredient has a
+    // unique id string generated that adheres to the firebase structure
+    let ingredientJson = '{';
+    ingredients.forEach((ingredient: Ingredient, i) => {
+      if (i > 0) {
+        ingredientJson += ',';
+      }
+      // Generate unique id string for each ingredient
+      ingredientJson += `"${UniqueIdGenerator.generate().toString()}": `;
+      ingredientJson += JSON.stringify(ingredient, ['name', 'unit', 'amount']);
+    });
+    ingredientJson += '}';
+
+    return this.http.patch<any>(
       this.FIREBASE_BASE_URL + this.INGREDIENT_TABLE + this.FIREBASE_URL_SUFFIX,
-      ingredients
+      ingredientJson
+    ).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // updateIngredient(ingredient: Ingredient) {
+  //   return this.http.patch(
+  //     `${this.FIREBASE_BASE_URL}/${this.INGREDIENT_TABLE}/${ingredient.getId()}${this.FIREBASE_URL_SUFFIX}`,
+  //     {
+  //       name: ingredient.getName(),
+  //       amount: ingredient.getAmount(),
+  //       unit: ingredient.getUnit()
+  //     }
+  //   ).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
+
+  deleteIngredient(ingredient: Ingredient) {
+    return this.http.delete(
+      `${this.FIREBASE_BASE_URL}/${this.INGREDIENT_TABLE}/${ingredient.getId()}${this.FIREBASE_URL_SUFFIX}`
     ).pipe(
       catchError(this.handleError)
     );

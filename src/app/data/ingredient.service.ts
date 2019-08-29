@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Ingredient } from './ingredient';
+import { Ingredient, IIngredient } from './ingredient';
 
 import { AppRepositoryService } from './app-repository.service';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -30,19 +30,31 @@ export class IngredientService {
     }
 
     addIngredient(ingredient: Ingredient) {
-        return this.repository.saveIngredients(ingredient);
+        return this.repository.saveIngredients(ingredient).pipe(
+            tap(() => {
+                this.refreshIngredients();
+            })
+        );
     }
 
-    addIngredients(ingredients: Ingredient[]): Observable<Ingredient[]> {
-        return this.repository.saveIngredients(...ingredients);
+    addIngredients(ingredients: Ingredient[]): Observable<string> {
+        return this.repository.saveIngredients(...ingredients).pipe(
+            tap(() => {
+                this.refreshIngredients();
+            })
+        );
     }
 
-    updateIngredient(ingredient: Ingredient): boolean {
-        return true;
-    }
+    // updateIngredient(ingredient: Ingredient): boolean {
+    //     return true;
+    // }
 
-    deleteIngredientById(id: string): boolean {
-        return true;
+    deleteIngredient(ingredient: Ingredient) {
+        return this.repository.deleteIngredient(ingredient).pipe(
+            tap(() => {
+                this.refreshIngredients();
+            })
+        );
     }
 
     private initIngredients(): void {

@@ -36,13 +36,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.ingredientSubscription.unsubscribe();
   }
 
-  deleteId(id: string) {
-    const deleted = this.ingredientService.deleteIngredientById(id);
-    if (!deleted) {
-      console.log('error deleting ingredient');
-    }
-  }
-
   onSubmit() {
     const ingredient = new Ingredient(
       null,
@@ -50,10 +43,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
       this.ingredientForm.get('amount').value,
       this.ingredientForm.get('unit').value
     );
-    // TODO: Finish saving ingredient(s) to firebase
-    this.ingredientService.addIngredient(ingredient).subscribe((response) => {
-      console.log(response);
-    });
+
+    this.ingredientService.addIngredient(ingredient).subscribe();
 
     this.ingredientForm.reset();
   }

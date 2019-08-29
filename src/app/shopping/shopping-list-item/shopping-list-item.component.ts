@@ -28,7 +28,8 @@ export class ShoppingListItemComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.ingredientService.deleteIngredientById(this.ingredientId);
+    const deleteSub = this.ingredientService.deleteIngredient(this.ingredient).subscribe();
+    this.ingredientSubscription.add(deleteSub);
   }
 
 }
