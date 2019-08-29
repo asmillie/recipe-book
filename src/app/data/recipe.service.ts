@@ -27,18 +27,21 @@ export class RecipeService {
             map((recipeList) => recipeList.find((recipe) => recipe.getId() === id))
         );
     }
-    // TODO: Service should return the observable to component can unsubscribe
-    // when finished
-    addRecipe(recipe: Recipe): void {
-        this.repository.saveRecipe(recipe).subscribe((recipeData) => {
-            this.refreshRecipes();
-        });
+
+    addRecipe(recipe: Recipe): Observable<Recipe> {
+        return this.repository.saveRecipe(recipe).pipe(
+            tap(() => {
+                this.refreshRecipes();
+            })
+        );
     }
 
-    updateRecipe(recipe: Recipe): void {
-        this.repository.updateRecipe(recipe).subscribe((recipeData) => {
-            this.refreshRecipes();
-        });
+    updateRecipe(recipe: Recipe): Observable<Recipe> {
+        return this.repository.updateRecipe(recipe).pipe(
+            tap(() => {
+                this.refreshRecipes();
+            })
+        );
     }
 
     deleteRecipeById(id: string): Observable<boolean> {

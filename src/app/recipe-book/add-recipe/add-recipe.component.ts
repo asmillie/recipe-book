@@ -160,10 +160,11 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
       ingredients
     );
 
-    this.mode === 'add' ? this.recipeService.addRecipe(recipe) : this.recipeService.updateRecipe(recipe);
-
-    this.clearForm();
-    this.router.navigateByUrl('recipes');
+    const saveRecipeSub = this.mode === 'add' ? this.recipeService.addRecipe(recipe) : this.recipeService.updateRecipe(recipe);
+    this.subscription.add(saveRecipeSub.subscribe(() => {
+      this.clearForm();
+      this.router.navigateByUrl('recipes');
+    }));
   }
 
   clearForm() {

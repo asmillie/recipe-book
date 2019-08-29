@@ -63,7 +63,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
     this.subscription.add(deleteSub);
   }
-
+  // FIXME: Adding ingredients to an existing recipe doesn't show up (recipe not refreshing)
   private initRecipe() {
     this.subscription = this.route.data.subscribe((data: { recipe: Recipe }) => {
       this.recipe = data.recipe;
