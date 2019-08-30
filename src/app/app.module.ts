@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { AddRecipeComponent } from './recipe-book/add-recipe/add-recipe.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipesComponent } from './recipe-book/recipes.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { RecipesComponent } from './recipe-book/recipes.component';
     HeaderComponent,
     AddRecipeComponent,
     RecipesComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
