@@ -14,6 +14,7 @@ import { AddRecipeComponent } from './recipe-book/add-recipe/add-recipe.componen
 import { AppRoutingModule } from './app-routing.module';
 import { RecipesComponent } from './recipe-book/recipes.component';
 import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AuthComponent } from './auth/auth.component';
     AddRecipeComponent,
     RecipesComponent,
     AuthComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,

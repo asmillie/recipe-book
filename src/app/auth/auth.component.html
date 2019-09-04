@@ -6,6 +6,9 @@
     <div class="col">
       <input type="password" class="form-control" placeholder="Password" formControlName="password">
     </div>
-    <button class="btn btn-primary" type="submit">Login</button>
+    <button class="btn btn-primary" type="submit" *ngIf="!isLoading">Login</button>
+    <div class="col" *ngIf="isLoading">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
   </div>
 </form>
