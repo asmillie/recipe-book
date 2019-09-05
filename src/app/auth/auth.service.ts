@@ -47,7 +47,7 @@ export class AuthService {
         returnSecureToken: true
       }
     ).pipe(
-      catchError(this.handleError)
+      catchError(this.handleSignupError)
     );
   }
 
@@ -58,17 +58,43 @@ export class AuthService {
     const errorMessage = error.error.error.message;
     // TODO: Remove logging
     console.error(error);
-    // If user is attempting login but doesn't have account then
-    // create user with provided email and password
-    if (errorMessage === 'EMAIL_NOT_FOUND') {
-      return this.createUser(email, password);
+
+    let returnError = '';
+    switch (errorMessage) {
+      case 'EMAIL_NOT_FOUND':
+        // If user is attempting login but doesn't have account then
+        // create user with provided email and password
+        return this.createUser(email, password);
+      case 'INVALID_PASSWORD':
+        returnError = 'Incorrect password';
+        break;
+      case 'USER_DISABLED':
+        returnError = 'User account has been disabled';
+        break;
+      default:
+        returnError = 'An error has occurred, please try again';
     }
-    return throwError(`${error.error.error.message}`);
+    return throwError(returnError);
   }
 
-  private handleError(error: HttpErrorResponse): Observable<never> {
+  private handleSignupError(error: HttpErrorResponse): Observable<never> {
     // TODO: Remove logging
     console.error(error);
-    return throwError(`${error.error.error.message}`);
+    const errorMessage = error.error.error.message;
+    let returnError = '';
+    switch (errorMessage) {
+      case 'EMAIL_EXISTS':
+        returnError = 'An account already exists for this email';
+        break;
+      case 'OPERATION_NOT_ALLOWED':
+        returnError = 'User signup is disabled';
+        break;
+      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
+        returnError = 'User signup temporarily disabled, please try again later';
+        break;
+      default:
+        returnError = 'An error has occurred, please try again';
+    }
+    return throwError(returnError);
   }
 }
