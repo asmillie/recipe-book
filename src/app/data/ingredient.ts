@@ -17,7 +17,7 @@ export class Ingredient {
         this.amount = amount;
         this.unit = unit;
     }
-
+    // TODO: Refactor getter and setters to utilize Typescript
     public getId(): string {
         return this.id;
     }

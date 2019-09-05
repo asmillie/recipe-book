@@ -21,7 +21,7 @@ export class Recipe {
         this.imagePath = imagePath;
         this.ingredients = ingredients;
     }
-
+    // TODO: refactor getter and setters to typescript format
     public getId(): string {
         return this.id;
     }
