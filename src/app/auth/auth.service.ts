@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -23,9 +23,11 @@ export class AuthService {
   private FIREBASE_EMAIL_SIGN_UP_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   private FIREBASE_WEB_API_KEY = 'AIzaSyBdqNa7ICSXkq-VZ0JG_L1mkwlw3ZgTjY0';
 
-  user = new Subject<User>();
+  user: Subject<User>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.initUser();
+  }
 
   loginUser(email: string, password: string): Observable<IFirebaseAuthResponse> {
     return this.http.post<IFirebaseAuthResponse>(
@@ -39,7 +41,9 @@ export class AuthService {
       catchError((error: HttpErrorResponse, caught: Observable<IFirebaseAuthResponse>) => {
         return this.handleLoginError(error, email, password);
       }),
-      tap(this.handleUserAuthResponse)
+      tap((response) => {
+        this.handleUserAuthResponse(response);
+      })
     );
   }
 
@@ -52,15 +56,22 @@ export class AuthService {
         returnSecureToken: true
       }
     ).pipe(
-      catchError(this.handleSignupError),
-      tap(this.handleUserAuthResponse)
+      catchError(this.handleSignupError)
     );
+  }
+
+  private initUser() {
+    this.user = new Subject<User>();
   }
 
   private handleUserAuthResponse(response: IFirebaseAuthResponse) {
     const expiryDate = new Date(new Date().getTime() + (+response.expiresIn * 1000));
-    const user = new User(response.email, response.localId, response.idToken, expiryDate);
-    this.user.next(user);
+    console.log(response);
+    console.log(`Expiry Date: ${expiryDate}`);
+    const newUser = new User(response.email, response.localId, response.idToken, expiryDate);
+    this.user.next(
+      newUser
+    );
   }
 
   private handleLoginError(

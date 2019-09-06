@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RecipesComponent } from './recipe-book/recipes.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     RecipesComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
