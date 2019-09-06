@@ -12,14 +12,15 @@
   
     <div class="collapse navbar-collapse" id="navLinks">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="isLoggedIn">
           <a class="nav-link" routerLink="/recipes">Recipes</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="isLoggedIn">
           <a class="nav-link" routerLink="/shopping-list">Shopping List</a>
         </li>        
       </ul>
 
-      <app-auth></app-auth>
+      <app-auth *ngIf="!isLoggedIn"></app-auth>
+      <button class="btn btn-secondary" *ngIf="isLoggedIn">Logout</button>
     </div>
 </nav>
