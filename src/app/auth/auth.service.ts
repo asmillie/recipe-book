@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of, Subject } from 'rxjs';
+import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { User } from './user.model';
@@ -23,7 +23,7 @@ export class AuthService {
   private FIREBASE_EMAIL_SIGN_UP_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   private FIREBASE_WEB_API_KEY = 'AIzaSyBdqNa7ICSXkq-VZ0JG_L1mkwlw3ZgTjY0';
 
-  user: Subject<User>;
+  user: BehaviorSubject<User>;
 
   constructor(private http: HttpClient) {
     this.initUser();
@@ -61,7 +61,7 @@ export class AuthService {
   }
 
   private initUser() {
-    this.user = new Subject<User>();
+    this.user = new BehaviorSubject<User>(null);
   }
 
   private handleUserAuthResponse(response: IFirebaseAuthResponse) {

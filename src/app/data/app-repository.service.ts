@@ -14,6 +14,7 @@ export class AppRepositoryService {
 
   private FIREBASE_BASE_URL = 'https://udemy-ng-recipe-book-3e7f3.firebaseio.com/';
   private FIREBASE_URL_SUFFIX = '.json';
+  private FIREBASE_AUTH_KEY = '?auth=';
   private RECIPE_TABLE = 'recipes';
   private INGREDIENT_TABLE = 'ingredients';
 
@@ -163,19 +164,6 @@ export class AppRepositoryService {
       catchError(this.handleError)
     );
   }
-
-  // updateIngredient(ingredient: Ingredient) {
-  //   return this.http.patch(
-  //     `${this.FIREBASE_BASE_URL}/${this.INGREDIENT_TABLE}/${ingredient.getId()}${this.FIREBASE_URL_SUFFIX}`,
-  //     {
-  //       name: ingredient.getName(),
-  //       amount: ingredient.getAmount(),
-  //       unit: ingredient.getUnit()
-  //     }
-  //   ).pipe(
-  //     catchError(this.handleError)
-  //   );
-  // }
 
   deleteIngredient(ingredient: Ingredient) {
     return this.http.delete(
