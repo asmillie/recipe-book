@@ -25,7 +25,6 @@ export class AuthGuard implements CanActivate, OnDestroy {
       console.log('CanActivate');
       return this.authService.user.pipe(
         map(user => {
-          console.log(user);
           return user.token !== null;
         })
       );
