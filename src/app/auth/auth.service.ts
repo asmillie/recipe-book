@@ -92,6 +92,7 @@ export class AuthService {
     this.user.next(
       newUser
     );
+    this.repository.saveUser(newUser);
   }
 
   private handleLoginError(
