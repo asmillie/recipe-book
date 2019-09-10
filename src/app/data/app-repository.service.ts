@@ -6,6 +6,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { UniqueIdGenerator } from '../utils/utils';
+import { User } from '../auth/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -170,6 +171,26 @@ export class AppRepositoryService {
     ).pipe(
       catchError(this.handleError)
     );
+  }
+
+  saveUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getUser(): Observable<User> {
+    const userData: {
+      email: string,
+      id: string,
+      _token: string,
+      _tokenExpirationDate: string
+    } = JSON.parse(localStorage.getItem('user'));
+
+    if (!userData) {
+      return of(null);
+    }
+
+    const user = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+    return of(user);
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
