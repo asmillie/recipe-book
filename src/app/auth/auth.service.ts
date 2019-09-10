@@ -4,6 +4,7 @@ import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 export interface IFirebaseAuthResponse {
   idToken: string;
@@ -25,7 +26,9 @@ export class AuthService {
 
   user: BehaviorSubject<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router) {
     this.initUser();
   }
 
@@ -58,6 +61,11 @@ export class AuthService {
     ).pipe(
       catchError(this.handleSignupError)
     );
+  }
+
+  logoutUser() {
+    this.user.next(null);
+    this.router.navigateByUrl('/');
   }
 
   private initUser() {

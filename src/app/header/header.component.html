@@ -21,6 +21,6 @@
       </ul>
 
       <app-auth *ngIf="!isLoggedIn"></app-auth>
-      <button class="btn btn-secondary" *ngIf="isLoggedIn">Logout</button>
+      <button class="btn btn-secondary" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
     </div>
 </nav>
