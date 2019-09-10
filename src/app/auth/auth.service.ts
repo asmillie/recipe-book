@@ -1,10 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, exhaustMap, take } from 'rxjs/operators';
 
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { AppRepositoryService } from '../data/app-repository.service';
 
 export interface IFirebaseAuthResponse {
   idToken: string;
@@ -28,8 +29,21 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private repository: AppRepositoryService) {
     this.initUser();
+  }
+
+  autoLogin() {
+    this.repository.getUser().pipe(
+      take(1)
+    ).subscribe((user: User) => {
+      if (!user || user == null || !user.token) {
+        return;
+      }
+
+      this.user.next(user);
+    });
   }
 
   loginUser(email: string, password: string): Observable<IFirebaseAuthResponse> {
@@ -74,8 +88,6 @@ export class AuthService {
 
   private handleUserAuthResponse(response: IFirebaseAuthResponse) {
     const expiryDate = new Date(new Date().getTime() + (+response.expiresIn * 1000));
-    console.log(response);
-    console.log(`Expiry Date: ${expiryDate}`);
     const newUser = new User(response.email, response.localId, response.idToken, expiryDate);
     this.user.next(
       newUser
