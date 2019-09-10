@@ -15,7 +15,7 @@ export interface IFirebaseAuthResponse {
   localId: string;
   registered?: boolean;
 }
-
+// TODO: Implement firebase refresh token to keep user logged in
 @Injectable({
   providedIn: 'root'
 })
