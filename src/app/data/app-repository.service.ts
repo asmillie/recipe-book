@@ -193,6 +193,10 @@ export class AppRepositoryService {
     return of(user);
   }
 
+  deleteUser() {
+    localStorage.removeItem('user');
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred: ', error.error.message);

@@ -79,6 +79,7 @@ export class AuthService {
 
   logoutUser() {
     this.user.next(null);
+    this.repository.deleteUser();
     this.router.navigateByUrl('/');
   }
 
