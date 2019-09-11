@@ -38,7 +38,7 @@ export class AuthService {
     this.repository.getUser().pipe(
       take(1)
     ).subscribe((user: User) => {
-      if (!user || user == null || !user.token) {
+      if (!user || user == null || !user.token || user.token === null) {
         return;
       }
 

@@ -179,17 +179,17 @@ export class AppRepositoryService {
 
   getUser(): Observable<User> {
     const userData: {
-      email: string,
-      id: string,
-      _token: string,
-      _tokenExpirationDate: string
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpiryDate: string;
     } = JSON.parse(localStorage.getItem('user'));
 
     if (!userData) {
       return of(null);
     }
-
-    const user = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+    const expiryDate = new Date(userData._tokenExpiryDate);
+    const user = new User(userData.email, userData.id, userData._token, expiryDate);
     return of(user);
   }
 
