@@ -1,23 +1,17 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, OnDestroy {
-
-  authSubscription: Subscription;
+export class AuthGuard implements CanActivate {
 
   constructor(
     private authService: AuthService
   ) {}
-
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
-  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
