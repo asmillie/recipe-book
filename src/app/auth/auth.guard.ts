@@ -10,16 +10,21 @@ import { map } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> {
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> {
       console.log('CanActivate');
       return this.authService.user.pipe(
         map(user => {
-          return user.token !== null;
+          if (user && user.token) {
+            return true;
+          }
+
+          return this.router.createUrlTree(['/']);
         })
       );
   }
