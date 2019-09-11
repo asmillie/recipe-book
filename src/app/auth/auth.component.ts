@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       password: [{ value: '', disabled: this.isLoading }]
     });
   }
-  // TODO: Finalize error display to user (toast or modal)
+  
   onSubmit() {
     this.isLoading = true;
     this.errorMessage =  '';
@@ -48,6 +48,10 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.errorMessage = error;
       });
+  }
+
+  dismissAlert() {
+    this.errorMessage = '';
   }
 
 }

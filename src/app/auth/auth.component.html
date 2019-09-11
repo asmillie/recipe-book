@@ -1,8 +1,9 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="form-row">
-    <div class="col" *ngIf="errorMessage !== ''">
+    <!-- <div class="col" *ngIf="errorMessage !== ''">
       <span class="text-danger align-middle">{{ errorMessage }}</span>
-    </div>
+    </div> -->
+    <app-alert *ngIf="errorMessage !== ''" [alertMessage]="errorMessage" (dismissEvent)="dismissAlert()"></app-alert>
     <div class="col">
       <input type="text" class="form-control" placeholder="Email" formControlName="email">
     </div>
