@@ -8,7 +8,7 @@ import { RecipeListItemComponent } from './recipe-list-item/recipe-list-item.com
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { RecipesComponent } from './recipes.component';
-import { AppRoutingModule } from '../app-routing.module';
+import { RecipeBookRoutingModule } from './recipe-book-routing.module';
 
 
 @NgModule({
@@ -29,8 +29,8 @@ import { AppRoutingModule } from '../app-routing.module';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        AppRoutingModule,
         HttpClientModule,
+        RecipeBookRoutingModule
     ]
 })
 export class RecipeBookModule {

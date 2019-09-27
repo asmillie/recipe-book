@@ -31,7 +31,7 @@ import { RecipeBookModule } from './recipe-book/recipe-book.module';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    RecipeBookModule
+    RecipeBookModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
