@@ -6,6 +6,7 @@ import { catchError, tap, exhaustMap, take } from 'rxjs/operators';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 import { AppRepositoryService } from '../data/app-repository.service';
+import { FIREBASE_WEB_API_KEY } from '../../../config/dev.env';
 
 export interface IFirebaseAuthResponse {
   idToken: string;
@@ -23,7 +24,6 @@ export class AuthService {
 
   private FIREBASE_EMAIL_SIGN_IN_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   private FIREBASE_EMAIL_SIGN_UP_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
-  private FIREBASE_WEB_API_KEY = 'AIzaSyBdqNa7ICSXkq-VZ0JG_L1mkwlw3ZgTjY0';
 
   user: BehaviorSubject<User>;
 
@@ -48,7 +48,7 @@ export class AuthService {
 
   loginUser(email: string, password: string): Observable<IFirebaseAuthResponse> {
     return this.http.post<IFirebaseAuthResponse>(
-      this.FIREBASE_EMAIL_SIGN_IN_URL + this.FIREBASE_WEB_API_KEY,
+      this.FIREBASE_EMAIL_SIGN_IN_URL + FIREBASE_WEB_API_KEY,
       {
         email,
         password,
@@ -66,7 +66,7 @@ export class AuthService {
 
   createUser(email: string, password: string): Observable<IFirebaseAuthResponse> {
     return this.http.post<IFirebaseAuthResponse>(
-      this.FIREBASE_EMAIL_SIGN_UP_URL + this.FIREBASE_WEB_API_KEY,
+      this.FIREBASE_EMAIL_SIGN_UP_URL + FIREBASE_WEB_API_KEY,
       {
         email,
         password,

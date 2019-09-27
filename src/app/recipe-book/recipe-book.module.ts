@@ -19,13 +19,6 @@ import { RecipeBookRoutingModule } from './recipe-book-routing.module';
         AddRecipeComponent,
         RecipesComponent,
     ],
-    exports: [
-        RecipeListComponent,
-        RecipeListItemComponent,
-        RecipeDetailComponent,
-        AddRecipeComponent,
-        RecipesComponent,
-    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -33,6 +26,4 @@ import { RecipeBookRoutingModule } from './recipe-book-routing.module';
         RecipeBookRoutingModule
     ]
 })
-export class RecipeBookModule {
-
-}
+export class RecipeBookModule { }
