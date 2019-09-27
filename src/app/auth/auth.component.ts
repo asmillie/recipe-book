@@ -34,7 +34,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       password: [{ value: '', disabled: this.isLoading }]
     });
   }
-  
+
   onSubmit() {
     this.isLoading = true;
     this.errorMessage =  '';

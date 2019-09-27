@@ -13,6 +13,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
+import { RecipeBookModule } from './recipe-book/recipe-book.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AlertComponent } from './shared/alert/alert.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    RecipeBookModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
