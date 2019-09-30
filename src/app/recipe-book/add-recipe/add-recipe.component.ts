@@ -161,6 +161,11 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
     );
 
     const saveRecipeSub = this.mode === 'add' ? this.recipeService.addRecipe(recipe) : this.recipeService.updateRecipe(recipe);
+
+    if (!this.subscription) {
+      this.subscription = new Subscription();
+    }
+
     this.subscription.add(saveRecipeSub.subscribe(() => {
       this.clearForm();
       this.router.navigateByUrl('recipes');

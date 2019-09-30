@@ -13,7 +13,7 @@ import { User } from '../auth/user.model';
 })
 export class AppRepositoryService {
 
-  private FIREBASE_BASE_URL = 'https://udemy-ng-recipe-book-3e7f3.firebaseio.com/';
+  private FIREBASE_BASE_URL = 'https://recipe-book-f7900.firebaseio.com/';
   private FIREBASE_URL_SUFFIX = '.json';
   private RECIPE_TABLE = 'recipes';
   private INGREDIENT_TABLE = 'ingredients';
