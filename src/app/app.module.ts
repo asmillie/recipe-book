@@ -29,7 +29,7 @@ import { ShoppingModule } from './shopping/shopping.module';
     AppRoutingModule,
     HttpClientModule,
     RecipeBookModule,
-    ShoppingModule
+    ShoppingModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
