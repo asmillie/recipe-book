@@ -72,7 +72,6 @@ export class AppRepositoryService {
     ).pipe(
       catchError(this.handleError),
       map((response) => {
-        console.log(response);
         recipe.setId(response.recipeId);
         return recipe;
       })
