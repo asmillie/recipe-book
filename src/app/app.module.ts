@@ -13,21 +13,21 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
 import { RecipeBookModule } from './recipe-book/recipe-book.module';
 import { ShoppingModule } from './shopping/shopping.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     AuthComponent,
-    LoadingSpinnerComponent,
     HomeComponent,
-    AlertComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    SharedModule,
     RecipeBookModule,
     ShoppingModule,
   ],
