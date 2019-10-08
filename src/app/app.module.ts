@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { RecipeBookModule } from './recipe-book/recipe-book.module';
 import { ShoppingModule } from './shopping/shopping.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -26,7 +25,6 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    RecipeBookModule,
     ShoppingModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],

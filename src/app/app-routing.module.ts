@@ -5,6 +5,10 @@ import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
+  {
+    path: 'recipes',
+    loadChildren: () => import('./recipe-book/recipe-book.module').then(m => m.RecipeBookModule)
+  }
 ];
 
 @NgModule({
