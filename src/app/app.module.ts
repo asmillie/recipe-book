@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { ShoppingModule } from './shopping/shopping.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    ShoppingModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
