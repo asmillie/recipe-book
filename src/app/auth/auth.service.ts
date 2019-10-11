@@ -1,12 +1,12 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
-import { catchError, tap, exhaustMap, take } from 'rxjs/operators';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, tap, take } from 'rxjs/operators';
 
 import { User } from './user.model';
 import { Router } from '@angular/router';
 import { AppRepositoryService } from '../data/app-repository.service';
-import { FIREBASE_WEB_API_KEY } from '../../../config/dev.env';
+import { environment } from '../../environments/environment';
 
 export interface IFirebaseAuthResponse {
   idToken: string;
@@ -48,7 +48,7 @@ export class AuthService {
 
   loginUser(email: string, password: string): Observable<IFirebaseAuthResponse> {
     return this.http.post<IFirebaseAuthResponse>(
-      this.FIREBASE_EMAIL_SIGN_IN_URL + FIREBASE_WEB_API_KEY,
+      this.FIREBASE_EMAIL_SIGN_IN_URL + environment.firebaseAPIKey,
       {
         email,
         password,
@@ -66,7 +66,7 @@ export class AuthService {
 
   createUser(email: string, password: string): Observable<IFirebaseAuthResponse> {
     return this.http.post<IFirebaseAuthResponse>(
-      this.FIREBASE_EMAIL_SIGN_UP_URL + FIREBASE_WEB_API_KEY,
+      this.FIREBASE_EMAIL_SIGN_UP_URL + environment.firebaseAPIKey,
       {
         email,
         password,
