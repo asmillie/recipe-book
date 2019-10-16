@@ -64,15 +64,15 @@ export class AppRepositoryService {
     return this.http.post<{ recipeId: string }>(
       this.FIREBASE_BASE_URL + this.RECIPE_TABLE + this.FIREBASE_URL_SUFFIX,
       {
-        name: recipe.getName(),
-        description: recipe.getDescription(),
-        imagePath: recipe.getImagePath(),
-        ingredients: recipe.getIngredients()
+        name: recipe.name,
+        description: recipe.description,
+        imagePath: recipe.imagePath,
+        ingredients: recipe.ingredients
       }
     ).pipe(
       catchError(this.handleError),
       map((response) => {
-        recipe.setId(response.recipeId);
+        recipe.id = response.recipeId;
         return recipe;
       })
     );
@@ -80,12 +80,12 @@ export class AppRepositoryService {
 
   updateRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http.patch<{ [recipeId: string ]: IRecipe }>(
-      `${this.FIREBASE_BASE_URL}${this.RECIPE_TABLE}/${recipe.getId()}${this.FIREBASE_URL_SUFFIX}`,
+      `${this.FIREBASE_BASE_URL}${this.RECIPE_TABLE}/${recipe.id}${this.FIREBASE_URL_SUFFIX}`,
       {
-        name: recipe.getName(),
-        description: recipe.getDescription(),
-        imagePath: recipe.getImagePath(),
-        ingredients: recipe.getIngredients()
+        name: recipe.name,
+        description: recipe.description,
+        imagePath: recipe.imagePath,
+        ingredients: recipe.ingredients
       }
     ).pipe(
       catchError(this.handleError),
@@ -166,7 +166,7 @@ export class AppRepositoryService {
 
   deleteIngredient(ingredient: Ingredient) {
     return this.http.delete(
-      `${this.FIREBASE_BASE_URL}/${this.INGREDIENT_TABLE}/${ingredient.getId()}${this.FIREBASE_URL_SUFFIX}`
+      `${this.FIREBASE_BASE_URL}/${this.INGREDIENT_TABLE}/${ingredient.id}${this.FIREBASE_URL_SUFFIX}`
     ).pipe(
       catchError(this.handleError)
     );

@@ -86,21 +86,21 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
   }
 
   private populateForm() {
-    this.recipeForm.get('name').setValue(this.recipe.getName());
-    this.recipeForm.get('description').setValue(this.recipe.getDescription());
-    this.recipeForm.get('imgPath').setValue(this.recipe.getImagePath());
+    this.recipeForm.get('name').setValue(this.recipe.name);
+    this.recipeForm.get('description').setValue(this.recipe.description);
+    this.recipeForm.get('imgPath').setValue(this.recipe.imagePath);
 
     let ingredientIndex = 0;
-    this.recipe.getIngredients().forEach((ingredient) => {
+    this.recipe.ingredients.forEach((ingredient) => {
       const row = this.recipeForm.get('ingredients').at(ingredientIndex);
       if (row) {
         row.setValue({
-          ingredientName: ingredient.getName(),
-          amount: ingredient.getAmount(),
-          unit: ingredient.getUnit()
+          ingredientName: ingredient.name,
+          amount: ingredient.amount,
+          unit: ingredient.unit
         });
       } else {
-        this.newIngredientRow(ingredient.getName(), ingredient.getAmount(), ingredient.getUnit());
+        this.newIngredientRow(ingredient.name, ingredient.amount, ingredient.unit);
       }
       ingredientIndex++;
     });
@@ -132,7 +132,7 @@ export class AddRecipeComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const recipeId = this.mode === 'add' ? '' : this.recipe.getId();
+    const recipeId = this.mode === 'add' ? '' : this.recipe.id;
 
     const ingredients: Ingredient[] = [];
     const rows = this.recipeForm.get('ingredients').length;

@@ -44,7 +44,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   private selectFirstRecipe() {
     if (this.recipeList.length > 0) {
-      this.selectRecipeById(this.recipeList[0].getId());
+      this.selectRecipeById(this.recipeList[0].id);
     }
   }
 

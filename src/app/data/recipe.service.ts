@@ -24,7 +24,7 @@ export class RecipeService {
     getRecipeById(id: string): Observable<Recipe> {
         return this.recipes.pipe(
             filter((recipeList) => recipeList.length > 0),
-            map((recipeList) => recipeList.find((recipe) => recipe.getId() === id))
+            map((recipeList) => recipeList.find((recipe) => recipe.id === id))
         );
     }
 

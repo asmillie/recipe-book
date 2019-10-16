@@ -6,47 +6,47 @@ export interface IIngredient {
 }
 
 export class Ingredient {
-    private id: string;
-    private name: string;
-    private amount: number;
-    private unit: string;
+    private _id: string;
+    private _name: string;
+    private _amount: number;
+    private _unit: string;
 
     constructor(id: string, name: string, amount: number, unit: string) {
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
-        this.unit = unit;
-    }
-    // TODO: Refactor getter and setters to utilize Typescript
-    public getId(): string {
-        return this.id;
+        this._id = id;
+        this._name = name;
+        this._amount = amount;
+        this._unit = unit;
     }
 
-    public getName(): string {
-        return this.name;
+    get id(): string {
+        return this._id;
     }
 
-    public getAmount(): number {
-        return this.amount;
+    get name(): string {
+        return this._name;
     }
 
-    public getUnit(): string {
-        return this.unit;
+    get amount(): number {
+        return this._amount;
     }
 
-    public setId(id: string) {
-        this.id = id;
+    get unit(): string {
+        return this._unit;
     }
 
-    public setName(name: string) {
-        this.name = name;
+    set id(id: string) {
+        this._id = id;
     }
 
-    public setAmount(amt: number) {
-        this.amount = amt;
+    set name(name: string) {
+        this._name = name;
     }
 
-    public setUnit(unit: string) {
-        this.unit = unit;
+    set amount(amt: number) {
+        this._amount = amt;
+    }
+
+    set unit(unit: string) {
+        this._unit = unit;
     }
 }

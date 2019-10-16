@@ -8,57 +8,57 @@ export interface IRecipe {
 }
 
 export class Recipe {
-    private id: string;
-    private name: string;
-    private description: string;
-    private imagePath: string;
-    private ingredients: Ingredient[];
+    private _id: string;
+    private _name: string;
+    private _description: string;
+    private _imagePath: string;
+    private _ingredients: Ingredient[];
 
     constructor(id: string, name: string, description: string, imagePath: string, ingredients: Ingredient[]) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.imagePath = imagePath;
-        this.ingredients = ingredients;
+        this._id = id;
+        this._name = name;
+        this._description = description;
+        this._imagePath = imagePath;
+        this._ingredients = ingredients;
     }
     // TODO: refactor getter and setters to typescript format
-    public getId(): string {
-        return this.id;
+    get id(): string {
+        return this._id;
     }
 
-    public getName(): string {
-        return this.name;
+    get name(): string {
+        return this._name;
     }
 
-    public getDescription(): string {
-        return this.description;
+    get description(): string {
+        return this._description;
     }
 
-    public getImagePath(): string {
-        return this.imagePath;
+    get imagePath(): string {
+        return this._imagePath;
     }
 
-    public getIngredients(): Ingredient[] {
-        return this.ingredients;
+    get ingredients(): Ingredient[] {
+        return this._ingredients;
     }
 
-    public setId(id: string) {
-        this.id = id;
+    set id(id: string) {
+        this._id = id;
     }
 
-    public setName(name: string) {
-        this.name = name;
+    set name(name: string) {
+        this._name = name;
     }
 
-    public setDescription(desc: string) {
-        this.description = desc;
+    set description(desc: string) {
+        this._description = desc;
     }
 
-    public setImagePath(path: string) {
-        this.imagePath = path;
+    set imagePath(path: string) {
+        this._imagePath = path;
     }
 
-    public setIngredients(ingredients: Ingredient[]) {
-        this.ingredients = ingredients;
+    set ingredients(ingredients: Ingredient[]) {
+        this._ingredients = ingredients;
     }
 }

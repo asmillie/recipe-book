@@ -37,7 +37,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   addToShopping() {
-    const ingredients = this.recipe.getIngredients();
+    const ingredients = this.recipe.ingredients;
     if (ingredients.length > 0) {
       const addIngredientsSub = this.ingredientService.addIngredients(ingredients).subscribe((response) => {
         console.log(response);
@@ -48,12 +48,12 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   editRecipe() {
-    this.router.navigate(['recipes/edit', this.recipe.getId()]);
+    this.router.navigate(['recipes/edit', this.recipe.id]);
   }
 
   deleteRecipe() {
     this.error = false;
-    const deleteSub = this.recipeService.deleteRecipeById(this.recipe.getId()).subscribe((success) => {
+    const deleteSub = this.recipeService.deleteRecipeById(this.recipe.id).subscribe((success) => {
       if (success) {
         this.router.navigate(['/recipes']);
       } else {
